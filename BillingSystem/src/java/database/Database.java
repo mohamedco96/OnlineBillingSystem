@@ -2,6 +2,7 @@ package database;
 
 import Database_Tables.*;
 import java.sql.*;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -78,7 +79,33 @@ public class Database {
             return user;
         }
     }
-    
+     
+     
+    public Vector<Users> retrieveAllCustomers() {
+        Vector<Users> user = new Vector();
+        try {
+            connect();
+            sqlCommand = "select * from users";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            result = preparedStatment.executeQuery();
+            while (result.next()) {
+                user.add(new Users(
+                        result.getInt(1),
+                        result.getString(2),
+                        result.getString(3),
+                        result.getString(4),
+                        result.getString(5),
+                        result.getString(6),
+                        result.getString(7)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            stop();
+            return user;
+        }
+    }
     private void stop() {
         try {
             connection.close();

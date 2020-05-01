@@ -29,6 +29,17 @@ public class Users
     }     
     
     
+     public Users(int uId,String name, String nid, String dialNumber, String address, String email, String profile) 
+    {
+        this.uId = uId;
+        this.name = name;
+        this.nid = nid;
+        this.dialNumber = dialNumber;
+        this.address = address;
+        this.email = email;
+        this.profile = profile;
+    } 
+    
     public int getuId() {
         return uId;
     }

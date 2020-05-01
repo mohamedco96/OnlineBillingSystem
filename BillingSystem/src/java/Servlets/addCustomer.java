@@ -29,11 +29,9 @@ public class addCustomer extends HttpServlet {
         user = new Users(req.getParameter("name"), req.getParameter("nid"), req.getParameter("dnum"),
                  req.getParameter("addr"), req.getParameter("email"), req.getParameter("profile"));
                       
-       if (db.addCustomer(user))
-            {
-                resp.sendRedirect("./addCustomer.jsp");
-                
-            }
+        boolean addCustomer = db.addCustomer(user);
+        resp.sendRedirect("./dashboard.jsp");
+       
         
         
     }
