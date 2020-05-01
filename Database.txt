@@ -1,0 +1,18 @@
+/**************  TABLES **********/
+
+>>>> users table <<<<
+
+CREATE TABLE users(
+	user_id serial PRIMARY KEY,
+	name text  NOT NULL,
+	nid text  NOT NULL,
+	dial_number text  NOT NULL,
+	address text  NOT NULL,
+             email text  NOT NULL,
+profile text  NOT NULL
+);
+<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>
+
+
+
+insert into users (name,nid ,dial_number,address,email,profile,otf,rs) values('Mohamed','29608111100656','01002062634','Egypt','mohamedco215@gmail.com','one',true,true);
