@@ -4,9 +4,17 @@
         <servlet-name>addCustomer</servlet-name>
         <servlet-class>Servlets.addCustomer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>search</servlet-name>
+        <servlet-class>Servlets.search</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addCustomer</servlet-name>
         <url-pattern>/addCustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>search</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

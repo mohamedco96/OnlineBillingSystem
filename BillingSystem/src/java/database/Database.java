@@ -54,6 +54,31 @@ public class Database {
         }
     }
     
+    
+     public Users getUserInfo(Users user) {
+        try {
+            connect();
+            sqlCommand = "SELECT * FROM users WHERE dial_number = ? ";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setString(1, user.getDialNumber());
+            result = preparedStatment.executeQuery();
+
+            while (result.next()) {
+                user.setName(result.getString(2));
+                user.setNid(result.getString(3));
+                user.setAddress(result.getString(4));
+                user.setEmail(result.getString(5));
+                user.setProfile(result.getString(6));
+                
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            stop();
+            return user;
+        }
+    }
+    
     private void stop() {
         try {
             connection.close();
