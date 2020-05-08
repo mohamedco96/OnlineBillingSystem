@@ -5,8 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
-<%@page import="Database_Tables.*"%>
-<%@page import="database.Database"%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -42,6 +41,10 @@
                     <a href="dashboard.jsp" class="list-group-item active waves-effect">
                         <i class="fas fa-chart-pie mr-3"></i>Dashboard
                     </a>
+                    <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-box mr-3"></i>Add Rateplan</a>
+                    <a href="service.jsp" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-robot mr-3"></i>Add Service</a>
                     <a href="addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Add Customer</a>
                     <a href="viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
@@ -61,7 +64,7 @@
                         <h4 class="mb-2 mb-sm-0 pt-1">
                             <a href="dashboard.jsp" target="_blank">Dashboard</a>
                         </h4>
-                        <form class="d-flex justify-content-center" action="searchResult.jsp" method="POST">
+                        <form class="d-flex justify-content-center" action="searchResult.jsp" method="GET">
                             <!-- Default input -->
                             <input type="search" placeholder="Find a customer" aria-label="Search" class="form-control" name="keyword">
                             <button class="btn btn-primary btn-sm my-0 p" type="submit">
@@ -73,13 +76,13 @@
                 <!-- Heading -->
             </div>
             <%
-                Database db = new Database();
-                Vector<Users> listOfUsers = db.retrieveAllCustomers();
+               // Database db = new Database();
+               // Vector<Users> listOfUsers = db.retrieveAllCustomers();
             %>
             <div class="container">
                 <div class="row">
                     <div class="four col-md-3">
-                        <div class="counter-box "> <i class="fa fa-user"></i> <span class="counter"><%=listOfUsers.size()%></span>
+                        <div class="counter-box "> <i class="fa fa-user"></i> <span class="counter"><%=//listOfUsers.size()%></span>
                             <p>Total Customer</p>
                         </div>
                     </div>
@@ -141,16 +144,16 @@
                             <!--Table body-->
                             <tbody>
                                 <%
-                                    for (Users u : listOfUsers) {
+                                   // for (Users u : listOfUsers) {
                                 %>
                                 <tr>
-                                    <th scope="row"><%=u.getuId()%></th>
-                                    <td><%=u.getName()%></td>
-                                    <td><%=u.getNid()%></td>
-                                    <td><%=u.getDialNumber()%></td>
-                                    <td><%=u.getAddress()%></td>
-                                    <td><%=u.getEmail()%></td>
-                                    <td><%=u.getProfile()%></td>
+                                    <th scope="row"><%=//u.getuId()%></th>
+                                    <td><%=//u.getName()%></td>
+                                    <td><%=//u.getNid()%></td>
+                                    <td><%=//u.getDialNumber()%></td>
+                                    <td><%=//u.getAddress()%></td>
+                                    <td><%=//u.getEmail()%></td>
+                                    <td><%=//u.getProfile()%></td>
                                 </tr>
                                 <%}%> 
                             </tbody>

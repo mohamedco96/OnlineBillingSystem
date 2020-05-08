@@ -1,8 +1,9 @@
 <%-- 
-    Document   : viewBilling
-    Created on : May 1, 2020, 4:52:01 PM
+    Document   : ratePlan
+    Created on : May 3, 2020, 10:54:55 PM
     Author     : moham
 --%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
 
@@ -20,10 +21,15 @@
         <!-- Material Design Bootstrap -->
         <link href="./css/mdb.min.css" rel="stylesheet">
         <link href="./css/style.min.css" rel="stylesheet">
-        <link href="./css/bill.css" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </head>
+    <style>
+        .pt-5,
+        .py-5 {
+            margin-bottom: 100px;
+        }
+    </style>
     <body class="grey lighten-3">
         <!--Main Navigation-->
         <header>
@@ -58,8 +64,6 @@
                     <div class="card-body d-sm-flex justify-content-between">
                         <h4 class="mb-2 mb-sm-0 pt-1">
                             <a href="dashboard.jsp" target="_blank">Dashboard</a>
-                            <span>/</span>
-                            <span>View Billing</span>
                         </h4>
                         <form class="d-flex justify-content-center" action="searchResult.jsp" method="POST">
                             <!-- Default input -->
@@ -72,85 +76,10 @@
                 </div>
                 <!-- Heading -->
             </div>
-            <button type="button" class="btn btn-outline-primary waves-effect rounded " onclick="HTMLtoPDF()"> Pdf Generator </button>
-            <div id="invoice" class="effect2">
-                <div id="invoice-top">
-                    <div class="logo"></div>
-                    <div class="info">
-                        <h2>MDB Company</h2>
-                        <p> Billing System </br>
-                        </p>
-                    </div><!--End Info-->
-                    <div class="title">
-                        <h1>Invoice #01</h1>
-                        <p id="billDate">
-                            Payment Due: </br>
-                        </p>
-                    </div><!--End Title-->
-                </div><!--End InvoiceTop-->
-                <div id="invoice-mid">
-                    <div class="clientlogo"></div>
-                    <div class="info">
-                        <h2>Client Name</h2>
-                        <p>JohnDoe@gmail.com</br>
-                            555-555-5555</br>
-                    </div>
-                </div><!--End Invoice Mid-->
-                <div id="invoice-bot">
-                    <div id="table">
-                        <table>
-                            <tr class="tabletitle">
-                                <td class="item"><h2>Item Description</h2></td>
-                                <td class="Hours"><h2>Hours</h2></td>
-                                <td class="Rate"><h2>Rate</h2></td>
-                                <td class="subtotal"><h2>Sub-total</h2></td>
-                            </tr>
-                            <tr class="service">
-                                <td class="tableitem"><p class="itemtext">Communication</p></td>
-                                <td class="tableitem"><p class="itemtext">5</p></td>
-                                <td class="tableitem"><p class="itemtext">$75</p></td>
-                                <td class="tableitem"><p class="itemtext">$375.00</p></td>
-                            </tr>
-                            <tr class="service">
-                                <td class="tableitem"><p class="itemtext">Asset Gathering</p></td>
-                                <td class="tableitem"><p class="itemtext">3</p></td>
-                                <td class="tableitem"><p class="itemtext">$75</p></td>
-                                <td class="tableitem"><p class="itemtext">$225.00</p></td>
-                            </tr>
-                            <tr class="service">
-                                <td class="tableitem"><p class="itemtext">Design Development</p></td>
-                                <td class="tableitem"><p class="itemtext">5</p></td>
-                                <td class="tableitem"><p class="itemtext">$75</p></td>
-                                <td class="tableitem"><p class="itemtext">$375.00</p></td>
-                            </tr>
-                            <tr class="service">
-                                <td class="tableitem"><p class="itemtext">Animation</p></td>
-                                <td class="tableitem"><p class="itemtext">20</p></td>
-                                <td class="tableitem"><p class="itemtext">$75</p></td>
-                                <td class="tableitem"><p class="itemtext">$1,500.00</p></td>
-                            </tr>
-                            <tr class="service">
-                                <td class="tableitem"><p class="itemtext">Animation Revisions</p></td>
-                                <td class="tableitem"><p class="itemtext">10</p></td>
-                                <td class="tableitem"><p class="itemtext">$75</p></td>
-                                <td class="tableitem"><p class="itemtext">$750.00</p></td>
-                            </tr>
-                            <tr class="service">
-                                <td class="tableitem"><p class="itemtext"></p></td>
-                                <td class="tableitem"><p class="itemtext">HST</p></td>
-                                <td class="tableitem"><p class="itemtext">13%</p></td>
-                                <td class="tableitem"><p class="itemtext">$419.25</p></td>
-                            </tr>
-                            <tr class="tabletitle">
-                                <td></td>
-                                <td></td>
-                                <td class="Rate"><h2>Total</h2></td>
-                                <td class="payment"><h2>$3,644.25</h2></td>
-                            </tr>
-                        </table>
-                    </div><!--End Table-->
-                </div><!--End InvoiceBot-->
-            </div><!--End Invoice-->
+
+      
+    
+      
         </main>
         <!--Main layout-->
         <!--Footer-->
@@ -161,24 +90,31 @@
                 <a href="#" target="_blank">
                     <i class="fab fa-facebook-f mr-3"></i>
                 </a>
+
                 <a href="#" target="_blank">
                     <i class="fab fa-twitter mr-3"></i>
                 </a>
+
                 <a href="#" target="_blank">
                     <i class="fab fa-youtube mr-3"></i>
                 </a>
+
                 <a href="#" target="_blank">
                     <i class="fab fa-google-plus mr-3"></i>
                 </a>
+
                 <a href="#" target="_blank">
                     <i class="fab fa-dribbble mr-3"></i>
                 </a>
+
                 <a href="#" target="_blank">
                     <i class="fab fa-pinterest mr-3"></i>
                 </a>
+
                 <a href="#" target="_blank">
                     <i class="fab fa-github mr-3"></i>
                 </a>
+
                 <a href="#" target="_blank">
                     <i class="fab fa-codepen mr-3"></i>
                 </a>
@@ -202,14 +138,9 @@
         <script type="text/javascript" src="js/mdb.min.js"></script>
         <!-- Initializations -->
         <script type="text/javascript">
-                // Animations initialization
-                new WOW().init();
+            // Animations initialization
+            new WOW().init();
         </script>
-        <script src="./js/jspdf.js"></script>
-        <script src="./js/jquery-2.1.3.js"></script>
-        <script src="./js/pdfFromHTML.js"></script>
-        <script>
-                var dt = new Date();
-                document.getElementById("billDate").innerHTML = (("0" + dt.getDate()).slice(-2)) + "." + (("0" + (dt.getMonth() + 1)).slice(-2)) + "." + (dt.getFullYear()) + " " + (("0" + dt.getHours()).slice(-2)) + ":" + (("0" + dt.getMinutes()).slice(-2));</script>
+
     </body>
 </html>

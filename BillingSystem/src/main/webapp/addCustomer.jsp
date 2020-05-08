@@ -34,9 +34,12 @@
                     <a href="dashboard.jsp" class="list-group-item active waves-effect">
                         <i class="fas fa-chart-pie mr-3"></i>Dashboard
                     </a>
+                    <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-box mr-3"></i>Add Rateplan</a>
+                    <a href="service.jsp" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-robot mr-3"></i>Add Service</a>
                     <a href="addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Add Customer</a>
-
                     <a href="viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-file-invoice mr-3"></i>View Billing</a>
                 </div>

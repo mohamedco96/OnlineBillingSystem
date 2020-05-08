@@ -5,6 +5,7 @@
  */
 package com.billingsystem.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,11 @@ public class Customer {
     private String address;
     private Date billingDate;
     private RatePlan ratePlan;
-    private List<Service> addOnServices;
+    private List<Service> addOnServices=new ArrayList<>();
+
+    public Customer() {
+        this.ratePlan = new RatePlan();
+    }
 
     public int getId() {
         return id;

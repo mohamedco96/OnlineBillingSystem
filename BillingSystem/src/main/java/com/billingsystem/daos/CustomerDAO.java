@@ -92,10 +92,11 @@ public class CustomerDAO implements DAO<Customer>{
     
     public Customer searchByPhone(String phone){
         Customer customer = new Customer();
+//        String customerJoinRatePlanQuery="select * from customer where phone= '" + phone + "'";
         String customerJoinRatePlanQuery = "SELECT cust.*, cust.id AS cid, cust.name AS cname,"
                 + " rp.name AS rpname, monthly_fees"
                 + " FROM customer cust, rate_plan rp"
-                + " WHERE cust.rate_plan_id = rp.id AND phone = " + phone;
+                + " WHERE cust.rate_plan_id = rp.id AND phone = '" + phone + "'";
 
         try (
                 Statement stmt1 = conn.createStatement();
@@ -105,16 +106,17 @@ public class CustomerDAO implements DAO<Customer>{
             if (rs1.next()) {
                 customer.setId(rs1.getInt("id"));
                 customer.setName(rs1.getString("cname"));
+                customer.setPhone(rs1.getString("phone"));
                 customer.setEmail(rs1.getString("email"));
                 customer.setAddress(rs1.getString("address"));
                 customer.setNid(rs1.getString("nid"));
-                customer.setBillingDate(rs1.getDate("address"));
+                customer.setBillingDate(rs1.getDate("billing_date"));
                 customer.getRatePlan().setId(rs1.getInt("rate_plan_id"));
                 customer.getRatePlan().setName(rs1.getString("rpname"));
                 customer.getRatePlan().setMonthlyFees(rs1.getFloat("monthly_fees"));
                 
-                String customerJoinServiceQuery = "SELECT cs.*, s.* FROM cust_svc cs, service s"
-                + "WHERE s.id = cs.service_id AND cust_id = " + customer.getId();
+                String customerJoinServiceQuery = "SELECT cs.*, s.* FROM cust_svc cs, service s "
+                + " WHERE s.id = cs.service_id AND cust_id = " + customer.getId();
                 ResultSet rs2 = stmt2.executeQuery(customerJoinServiceQuery);
                 while(rs2.next()){
                     Service service = new Service();
@@ -126,6 +128,7 @@ public class CustomerDAO implements DAO<Customer>{
                 }
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
             System.out.println("##### Customer search by phone faild: \n" + ex.getMessage());
         }
         return customer;

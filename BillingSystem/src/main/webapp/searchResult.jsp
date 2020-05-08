@@ -3,9 +3,9 @@
     Created on : Apr 30, 2020, 10:53:02 PM
     Author     : moham
 --%>
+<%@page import="com.billingsystem.entities.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="database.*"%>
-<%@page import="Database_Tables.Users"%>
+<%@page import="com.billingsystem.daos.*"%>
 <%@page import="java.util.Vector"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,9 +42,12 @@
                     <a href="dashboard.jsp" class="list-group-item active waves-effect">
                         <i class="fas fa-chart-pie mr-3"></i>Dashboard
                     </a>
+                    <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-box mr-3"></i>Add Rateplan</a>
+                    <a href="service.jsp" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-robot mr-3"></i>Add Service</a>
                     <a href="addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Add Customer</a>
-
                     <a href="viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-file-invoice mr-3"></i>View Billing</a>
                 </div>
@@ -76,10 +79,10 @@
             </div>
             <%
                 if (request.getParameter("keyword") != null) {
-                    Database db = new Database();
-                    Users u0 = new Users();
-                    u0.setDialNumber(request.getParameter("keyword"));
-                    Users user = db.getUserInfo(u0);
+                    CustomerDAO cd = new CustomerDAO();
+                    Customer c = new Customer();
+                    c.setPhone(request.getParameter("keyword"));
+                    Customer customer = cd.searchByPhone(request.getParameter("keyword"));
             %>        
             <div class="container" style="margin-top: 50px">
                 <div class="row justify-content-center">
@@ -120,13 +123,13 @@
                                                                             <div class="col ">
                                                                                 <div class="form-group">
                                                                                     <label>NAME:</label>
-                                                                                    <label><%=user.getName()%></label>
+                                                                                    <label><%=customer.getName()%></label>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col">
                                                                                 <div class="form-group">
                                                                                     <label>National ID:</label>
-                                                                                    <label><%=user.getNid()%></label>
+                                                                                    <label><%=customer.getNid()%></label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -134,13 +137,13 @@
                                                                             <div class="col">
                                                                                 <div class="form-group">
                                                                                     <label>Dial Number:</label>
-                                                                                    <label><%=user.getDialNumber()%></label>
+                                                                                    <label><%=customer.getPhone()%></label>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col">
                                                                                 <div class="form-group">
                                                                                     <label>Address:</label>
-                                                                                    <label><%=user.getAddress()%></label>
+                                                                                    <label><%=customer.getAddress()%></label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -148,13 +151,13 @@
                                                                             <div class="col">
                                                                                 <div class="form-group">
                                                                                     <label>Email:</label>
-                                                                                    <label><%=user.getEmail()%></label>
+                                                                                    <label><%=customer.getEmail()%></label>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col">
                                                                                 <div class="form-group">
                                                                                     <label>Profile:</label>
-                                                                                    <label><%=user.getProfile()%></label>
+                                                                                    <label><%=customer.getRatePlan().getName()%></label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
