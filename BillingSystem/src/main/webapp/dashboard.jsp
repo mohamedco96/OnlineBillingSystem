@@ -82,7 +82,7 @@
             <div class="container">
                 <div class="row">
                     <div class="four col-md-3">
-                        <div class="counter-box "> <i class="fa fa-user"></i> <span class="counter"><%=//listOfUsers.size()%></span>
+                        <div class="counter-box "> <i class="fa fa-user"></i> <span class="counter">451</span>
                             <p>Total Customer</p>
                         </div>
                     </div>
@@ -147,15 +147,15 @@
                                    // for (Users u : listOfUsers) {
                                 %>
                                 <tr>
-                                    <th scope="row"><%=//u.getuId()%></th>
-                                    <td><%=//u.getName()%></td>
-                                    <td><%=//u.getNid()%></td>
-                                    <td><%=//u.getDialNumber()%></td>
-                                    <td><%=//u.getAddress()%></td>
-                                    <td><%=//u.getEmail()%></td>
-                                    <td><%=//u.getProfile()%></td>
+                                    <th scope="row">1</th>
+                                    <td>name</td>
+                                    <td>id</td>
+                                    <td>phone</td>
+                                    <td>Address</td>
+                                    <td>Email</td>
+                                    <td>Profile</td>
                                 </tr>
-                                <%}%> 
+                                <!--}-->
                             </tbody>
                             <!--Table body-->
                         </table>
