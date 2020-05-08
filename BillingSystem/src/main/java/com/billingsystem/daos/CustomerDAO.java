@@ -44,8 +44,9 @@ public class CustomerDAO implements DAO<Customer>{
                 customer.setName(rs1.getString("cname"));
                 customer.setEmail(rs1.getString("email"));
                 customer.setAddress(rs1.getString("address"));
+                customer.setPhone(rs1.getString("phone"));
                 customer.setNid(rs1.getString("nid"));
-                customer.setBillingDate(rs1.getDate("address"));
+                customer.setBillingDate(rs1.getDate("billing_date"));
                 customer.getRatePlan().setId(rs1.getInt("rate_plan_id"));
                 customer.getRatePlan().setName(rs1.getString("rpname"));
                 customer.getRatePlan().setMonthlyFees(rs1.getFloat("monthly_fees"));

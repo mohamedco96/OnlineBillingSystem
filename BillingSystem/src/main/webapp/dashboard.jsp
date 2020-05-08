@@ -3,6 +3,9 @@
     Created on : May 1, 2020, 3:03:27 PM
     Author     : moham
 --%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.billingsystem.entities.Customer"%>
+<%@page import="com.billingsystem.daos.CustomerDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
 
@@ -78,11 +81,13 @@
             <%
                // Database db = new Database();
                // Vector<Users> listOfUsers = db.retrieveAllCustomers();
+               CustomerDAO cd = new CustomerDAO();
+               ArrayList<Customer> listOfCustomer = cd.getAll();
             %>
             <div class="container">
                 <div class="row">
                     <div class="four col-md-3">
-                        <div class="counter-box "> <i class="fa fa-user"></i> <span class="counter">451</span>
+                        <div class="counter-box "> <i class="fa fa-user"></i> <span class="counter"><%=listOfCustomer.size()%></span>
                             <p>Total Customer</p>
                         </div>
                     </div>
@@ -144,18 +149,18 @@
                             <!--Table body-->
                             <tbody>
                                 <%
-                                   // for (Users u : listOfUsers) {
+                                    for (Customer c : listOfCustomer) {
                                 %>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>name</td>
-                                    <td>id</td>
-                                    <td>phone</td>
-                                    <td>Address</td>
-                                    <td>Email</td>
-                                    <td>Profile</td>
+                                    <th scope="row"><%=c.getId()%></th>
+                                    <td><%=c.getName()%></td>
+                                    <td><%=c.getNid()%></td>
+                                    <td><%=c.getPhone()%></td>
+                                    <td><%=c.getAddress()%></td>
+                                    <td><%=c.getEmail()%></td>
+                                    <td><%=c.getRatePlan().getName()%></td>
                                 </tr>
-                                <!--}-->
+                                <% } %> 
                             </tbody>
                             <!--Table body-->
                         </table>
