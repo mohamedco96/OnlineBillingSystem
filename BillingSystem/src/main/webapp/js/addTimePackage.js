@@ -11,15 +11,18 @@ const $tableID = $('#table');
 <tr class="hide" id="0">
   <td class="pt-3-half">1</td>
   <td class="pt-3-half" contenteditable="true"></td>
-  <td class="pt-3-half" contenteditable="true"></td>
+  <td class="pt-3-half" contenteditable="true">0000-00-00 00:00:00</td>
+  <td class="pt-3-half" contenteditable="true">0000-00-00 00:00:00</td>
   <td class="pt-3-half">
     <select class="browser-default custom-select mb-4" id="select" name="type">
         <option value="" disabled="" selected="">Choose your option</option>
-        <option value="Voice">Voice</option>
-        <option value="Data">Data</option>
-        <option value="Sms">Sms</option>
-        <option value="Recurring Services">Recurring Services</option>
-        <option value="One time fee">One time fee</option>
+        <option value="Mon">Mon</option>
+        <option value="Tue">Tue</option>
+        <option value="Wed">Wed</option>
+        <option value="Thu">Thu</option>
+        <option value="Fri">Fri</option>
+        <option value="Sat">Sat</option>
+        <option value="Sun">Sun</option>
     </select>
   </td>
 
@@ -37,24 +40,24 @@ const $tableID = $('#table');
 if ($tableID.find('tbody tr').length === 0) {
 
 $('tbody').append(newTr);
-}
+        }
 else{
 const $clone = $tableID.find('tbody tr').last();
         var newOrder = (parseInt($clone.find('td:eq(0)').text())) + 1;
         $('tbody').append(newTr);
         $tableID.find('tbody tr').last().find('td:eq(0)').html(newOrder);
-}
+        }
 //  $tableID.find('table').append($clone);
 });
         $tableID.on('click', '.table-remove', function () {
         var currentRow = $(this).closest('tr');
-                var serviceId = currentRow.attr("id");
+                var TimePackage = currentRow.attr("id");
                 var clickedBtn = $(this);
-                if (serviceId === "0")
+                if (TimePackage === "0")
                 $(this).parents('tr').detach();
                 else{
-                $.post('../deleteService', {
-                service_id: serviceId
+                $.post('../deleteTimePackage', {
+                TimePackage_id: TimePackage
                 },
                         function (response) {
                         if (response === "success")
@@ -67,16 +70,17 @@ const $clone = $tableID.find('tbody tr').last();
 //           alert("t");
         var currentRow = $(this).closest('tr');
                 var trid = $(this).closest('tr').attr('id');
-                var ServiceName = currentRow.find('td:eq(1)').text();
-                var rating = currentRow.find('td:eq(2)').text();
-                var type = currentRow.find('td:eq(3)').children(0).children("option:selected").val();
-                alert("++" + ServiceName + "," + rating + "," + type)
+                var timePackageName = currentRow.find('td:eq(1)').text();
+                var start = currentRow.find('td:eq(2)').text();
+                var finish = currentRow.find('td:eq(3)').text();
+                var day = currentRow.find('td:eq(4)').children(0).children("option:selected").val();
+//                alert("++" + ServiceName + "," + rating + "," + ratingf  + "," + type)
                 //POST request
-                $.post('../addService', {
-                        service_name: ServiceName,
-                        rate: rating,
-                        type: type,
-                        
+                $.post('../addtimePackage', {
+                pkg_name: timePackageName,
+                        start: start,
+                        finish: finish,
+                        day: day,
                 },
                         function (response) {
                         if (response !== "failed"){
@@ -86,7 +90,7 @@ const $clone = $tableID.find('tbody tr').last();
                         else
                                 alert("failed");
                         });
-                });
+        });
         // A few jQuery helpers for exporting only
         jQuery.fn.pop = [].pop;
         jQuery.fn.shift = [].shift;

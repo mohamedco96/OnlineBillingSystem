@@ -12,6 +12,14 @@
         <servlet-name>deleteService</servlet-name>
         <servlet-class>com.billingsystem.servlets.deleteService</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addtimePackage</servlet-name>
+        <servlet-class>com.billingsystem.servlets.addtimePackage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteTimePackage</servlet-name>
+        <servlet-class>com.billingsystem.servlets.deleteTimePackage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addCustomer</servlet-name>
         <url-pattern>/addCustomer</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>deleteService</servlet-name>
         <url-pattern>/deleteService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addtimePackage</servlet-name>
+        <url-pattern>/addtimePackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteTimePackage</servlet-name>
+        <url-pattern>/deleteTimePackage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

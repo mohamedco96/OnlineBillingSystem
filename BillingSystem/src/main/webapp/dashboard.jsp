@@ -3,6 +3,8 @@
     Created on : May 1, 2020, 3:03:27 PM
     Author     : moham
 --%>
+<%@page import="com.billingsystem.daos.ServiceDao"%>
+<%@page import="com.billingsystem.entities.Service"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.billingsystem.entities.Customer"%>
 <%@page import="com.billingsystem.daos.CustomerDAO"%>
@@ -44,14 +46,19 @@
                     <a href="dashboard.jsp" class="list-group-item active waves-effect">
                         <i class="fas fa-chart-pie mr-3"></i>Dashboard
                     </a>
-                    <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-box mr-3"></i>Add Rateplan</a>
-                    <a href="service.jsp" class="list-group-item list-group-item-action waves-effect">
+                    <a href="./pages/service.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-robot mr-3"></i>Add Service</a>
-                    <a href="addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
+                    <a href="./pages/timePackage.jsp" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-clock mr-3"></i>Add Time Package</a>
+                    <a href="./pages/tarrifZone.jsp" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-coins mr-3"></i>Add Tarrif Zone</a>
+                    <a href="./pages/ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-box mr-3"></i>Add Rateplan</a>
+                    <a href="./pages/addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Add Customer</a>
-                    <a href="viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
+                    <a href="./pages/viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-file-invoice mr-3"></i>View Billing</a>
+
                 </div>
             </div>
             <!-- Sidebar -->
@@ -67,7 +74,7 @@
                         <h4 class="mb-2 mb-sm-0 pt-1">
                             <a href="dashboard.jsp" target="_blank">Dashboard</a>
                         </h4>
-                        <form class="d-flex justify-content-center" action="searchResult.jsp" method="GET">
+                        <form class="d-flex justify-content-center" action="./pages/searchResult.jsp" method="GET">
                             <!-- Default input -->
                             <input type="search" placeholder="Find a customer" aria-label="Search" class="form-control" name="keyword">
                             <button class="btn btn-primary btn-sm my-0 p" type="submit">
@@ -79,10 +86,12 @@
                 <!-- Heading -->
             </div>
             <%
-               // Database db = new Database();
-               // Vector<Users> listOfUsers = db.retrieveAllCustomers();
-               CustomerDAO cd = new CustomerDAO();
-               ArrayList<Customer> listOfCustomer = cd.getAll();
+                // Database db = new Database();
+                // Vector<Users> listOfUsers = db.retrieveAllCustomers();
+                CustomerDAO cd = new CustomerDAO();
+                ServiceDao sd = new ServiceDao();
+                ArrayList<Customer> listOfCustomer = cd.getAll();
+                ArrayList<Service> listOfService = sd.getAll();
             %>
             <div class="container">
                 <div class="row">
@@ -92,8 +101,8 @@
                         </div>
                     </div>
                     <div class="four col-md-3">
-                        <div class="counter-box"> <i class="fa fa-user"></i> <span class="counter">3275</span>
-                            <p>Profile</p>
+                        <div class="counter-box"> <i class="fa fa-user"></i> <span class="counter"><%=listOfService.size()%></span>
+                            <p>Service</p>
                         </div>
                     </div>
                     <div class="four col-md-3">
@@ -160,7 +169,7 @@
                                     <td><%=c.getEmail()%></td>
                                     <td><%=c.getRatePlan().getName()%></td>
                                 </tr>
-                                <% } %> 
+                                <% }%> 
                             </tbody>
                             <!--Table body-->
                         </table>

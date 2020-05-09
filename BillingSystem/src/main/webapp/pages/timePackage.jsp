@@ -1,9 +1,14 @@
 <%-- 
-    Document   : ratePlan
-    Created on : May 3, 2020, 10:54:55 PM
+    Document   : timePackage
+    Created on : May 9, 2020, 8:46:41 PM
     Author     : moham
 --%>
 
+<%@page import="com.billingsystem.entities.timePackage"%>
+<%@page import="com.billingsystem.daos.timePackageDao"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.billingsystem.entities.Service"%>
+<%@page import="com.billingsystem.daos.ServiceDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
 
@@ -17,10 +22,10 @@
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
         <!-- Bootstrap core CSS -->
-        <link href="./css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
         <!-- Material Design Bootstrap -->
-        <link href="./css/mdb.min.css" rel="stylesheet">
-        <link href="./css/style.min.css" rel="stylesheet">
+        <link href="../css/mdb.min.css" rel="stylesheet">
+        <link href="../css/style.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </head>
@@ -39,17 +44,22 @@
                     <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
                 </a>
                 <div class="list-group list-group-flush">
-                    <a href="dashboard.jsp" class="list-group-item active waves-effect">
+                    <a href="../dashboard.jsp" class="list-group-item active waves-effect">
                         <i class="fas fa-chart-pie mr-3"></i>Dashboard
                     </a>
-                    <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-box mr-3"></i>Add Rateplan</a>
                     <a href="service.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-robot mr-3"></i>Add Service</a>
+                    <a href="timePackage.jsp" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-clock mr-3"></i>Add Time Package</a>
+                    <a href="tarrifZone.jsp" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-coins mr-3"></i>Add Tarrif Zone</a>
+                    <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-box mr-3"></i>Add Rateplan</a>
                     <a href="addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Add Customer</a>
                     <a href="viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-file-invoice mr-3"></i>View Billing</a>
+
                 </div>
             </div>
             <!-- Sidebar -->
@@ -63,7 +73,9 @@
                     <!--Card content-->
                     <div class="card-body d-sm-flex justify-content-between">
                         <h4 class="mb-2 mb-sm-0 pt-1">
-                            <a href="dashboard.jsp" target="_blank">Dashboard</a>
+                            <a href="../dashboard.jsp" target="_blank">Dashboard</a>
+                            <span>/</span>
+                            <span>Add Time Package</span>
                         </h4>
                         <form class="d-flex justify-content-center" action="searchResult.jsp" method="POST">
                             <!-- Default input -->
@@ -77,9 +89,64 @@
                 <!-- Heading -->
             </div>
 
-      
-    
-      
+            <!--Card-->
+            <div class="card">
+                <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Time Package</h3>
+
+                <!--Card content-->
+                <div class="card-body">
+
+                    <div id="table" class="table-editable">
+                        <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+                                    class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+                        <table class="table table-bordered table-responsive-md table-striped text-center">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Package Name</th>
+                                    <th class="text-center">Start</th>
+                                    <th class="text-center">Finish</th>
+                                    <th class="text-center">Day</th>
+                                    <th class="text-center">Submit</th>
+                                    <th class="text-center">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                    timePackageDao tpd = new timePackageDao();
+                                    ArrayList<timePackage> alltimePackage = tpd.getAll();
+                                    //
+                                    for (int i = 0; i < alltimePackage.size(); i++) {
+                                %>
+                                <tr id="<%=alltimePackage.get(i).getId()%>">
+                                    <td class="pt-3-half"><%=i + 1%></td>
+                                    <td class="pt-3-half" contenteditable="true"><%=alltimePackage.get(i).getName()%></td>
+                                    <td class="pt-3-half" contenteditable="true"><%=alltimePackage.get(i).getStart()%></td>
+                                    <td class="pt-3-half" contenteditable="true"><%=alltimePackage.get(i).getFinish()%></td>
+                                    <td class="pt-3-half" contenteditable="true"><%=alltimePackage.get(i).getDay()%></td>
+                                    <td>
+                                        <span class="table-submit"><button type="button"
+                                                                           class="btn btn-primary btn-rounded btn-sm my-0">Submit</button></span>
+                                    </td>
+                                    <td>
+                                        <span class="table-remove"><button type="button"
+                                                                           class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                    </td>
+                                </tr>
+                                <%}%>
+
+                            </tbody>
+                        </table>
+                        <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+                                    class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
         </main>
         <!--Main layout-->
         <!--Footer-->
@@ -129,18 +196,20 @@
         <!--/.Footer-->
         <!-- SCRIPTS -->
         <!-- JQuery -->
-        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
         <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="js/popper.min.js"></script>
+        <script type="text/javascript" src="../js/popper.min.js"></script>
         <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <script type="text/javascript" src="../js/mdb.min.js"></script>
         <!-- Initializations -->
         <script type="text/javascript">
             // Animations initialization
             new WOW().init();
         </script>
+        <script src="../js/addTimePackage.js"></script>
+
 
     </body>
 </html>
