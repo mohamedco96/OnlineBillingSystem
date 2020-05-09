@@ -35,7 +35,6 @@ public class addCustomer extends HttpServlet {
 //                      
 //        boolean addCustomer = db.addCustomer(user);
 //        resp.sendRedirect("./dashboard.jsp");
-
         cd.save(c);
 
     }

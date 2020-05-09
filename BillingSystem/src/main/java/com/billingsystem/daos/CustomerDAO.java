@@ -7,7 +7,7 @@ package com.billingsystem.daos;
 
 import com.billingsystem.database.Database;
 import com.billingsystem.entities.Customer;
-import com.billingsystem.entities.Service;
+import com.billingsystem.entities.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

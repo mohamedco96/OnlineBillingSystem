@@ -4,6 +4,9 @@
     Author     : moham
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.billingsystem.entities.Service"%>
+<%@page import="com.billingsystem.daos.ServiceDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
 
@@ -118,28 +121,19 @@
                                     <tbody>
                                         <%
 //                                            ProductDAO productDAO = new ProductDAO();
-//                                            ArrayList<Product> allProducts = productDAO.getAll();
+                                            ServiceDao sd = new ServiceDao();
+                                            ArrayList<Service> allService = sd.getAll();
 //                                            ArrayList<Category> allCategories = new ArrayList<>();
 //                                            allCategories.add(new Category(1, "mobiles"));
 //                                            allCategories.add(new Category(2, "laptops"));
 //
-//                                            for (int i = 0; i < allProducts.size(); i++) {
-
+                                            for (int i = 0; i < allService.size(); i++) {
                                         %>
-                                        <tr id="1">
-                                            <td class="pt-3-half">1</td>
-                                            <td class="pt-3-half" contenteditable="true">1</td>
-                                            <td class="pt-3-half" contenteditable="true">1</td>
-                                            <td class="pt-3-half" contenteditable="true">
-                                                <select class="browser-default custom-select mb-4" id="select" name="type">
-                                                    <option value="" disabled="" selected="">Choose your option</option>
-                                                    <option value="Voice">Voice</option>
-                                                    <option value="Data">Data</option>
-                                                    <option value="Sms">Sms</option>
-                                                    <option value="Recurring Services">Recurring Services</option>
-                                                    <option value="One time fee">One time fee</option>
-                                                </select>
-                                            </td>
+                                        <tr id="<%=allService.get(i).getId()%>">
+                                            <td class="pt-3-half"><%=i+1%></td>
+                                            <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getName()%></td>
+                                            <td class="pt-3-half" contenteditable="true"><%=allService.get(i).isRated()%></td>
+                                            <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getType()%></td>
                                             <td>
                                                 <span class="table-submit"><button type="button"
                                                                                    class="btn btn-primary btn-rounded btn-sm my-0">Submit</button></span>
@@ -149,8 +143,7 @@
                                                                                    class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
                                             </td>
                                         </tr>
-                                        <%//                                            }
-                                        %>
+                                        <%}%>
 
                                     </tbody>
                                 </table>

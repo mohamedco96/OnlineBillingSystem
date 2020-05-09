@@ -48,13 +48,13 @@ const $clone = $tableID.find('tbody tr').last();
 });
         $tableID.on('click', '.table-remove', function () {
         var currentRow = $(this).closest('tr');
-                var productId = currentRow.attr("id");
+                var serviceId = currentRow.attr("id");
                 var clickedBtn = $(this);
-                if (productId === "0")
+                if (serviceId === "0")
                 $(this).parents('tr').detach();
                 else{
-                $.post('../ProductDeleteServlet', {
-                product_id: productId
+                $.post('./deleteService', {
+                service_id: serviceId
                 },
                         function (response) {
                         if (response === "success")

@@ -5,24 +5,24 @@
         <servlet-class>com.billingsystem.servlets.addCustomer</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>search</servlet-name>
-        <servlet-class>Servlets.search</servlet-class>
+        <servlet-name>addService</servlet-name>
+        <servlet-class>com.billingsystem.servlets.addService</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>addService</servlet-name>
-        <servlet-class>servlets.addService</servlet-class>
+        <servlet-name>deleteService</servlet-name>
+        <servlet-class>com.billingsystem.servlets.deleteService</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addCustomer</servlet-name>
         <url-pattern>/addCustomer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>search</servlet-name>
-        <url-pattern>/search</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>addService</servlet-name>
         <url-pattern>/addService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteService</servlet-name>
+        <url-pattern>/deleteService</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
