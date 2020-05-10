@@ -36,6 +36,10 @@
         <servlet-name>DeleteRatePlan</servlet-name>
         <servlet-class>com.billingsystem.servlets.DeleteRatePlan</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addServicePackage</servlet-name>
+        <servlet-class>com.billingsystem.servlets.addServicePackage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addCustomer</servlet-name>
         <url-pattern>/addCustomer</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>DeleteRatePlan</servlet-name>
         <url-pattern>/DeleteRatePlan</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addServicePackage</servlet-name>
+        <url-pattern>/addServicePackage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -12,7 +12,7 @@ package com.billingsystem.entities;
 public class ServicePackage {
 
     private int id;
-    private int rate_plan_id;
+    private RatePlan RatePlan;
     private Service service;
     private timePackage timePackage;
     private tarrifZone tarrifZone;
@@ -27,12 +27,12 @@ public class ServicePackage {
         this.id = id;
     }
 
-    public int getRate_plan_id() {
-        return rate_plan_id;
+    public RatePlan getRatePlan() {
+        return RatePlan;
     }
 
-    public void setRate_plan_id(int rate_plan_id) {
-        this.rate_plan_id = rate_plan_id;
+    public void setRatePlan(RatePlan RatePlan) {
+        this.RatePlan = RatePlan;
     }
 
     public Service getService() {

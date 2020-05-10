@@ -1,11 +1,9 @@
 <%-- 
-    Document   : tarrifZone
-    Created on : May 9, 2020, 9:38:39 PM
+    Document   : ServicePackage
+    Created on : May 11, 2020, 12:50:03 AM
     Author     : moham
 --%>
 
-<%@page import="com.billingsystem.daos.tarrifZoneDao"%>
-<%@page import="com.billingsystem.entities.tarrifZone"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.billingsystem.entities.Service"%>
 <%@page import="com.billingsystem.daos.ServiceDao"%>
@@ -43,7 +41,7 @@
                 <a class="logo-wrapper waves-effect">
                     <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
                 </a>
-               <div class="list-group list-group-flush">
+                <div class="list-group list-group-flush">
                     <a href="../dashboard.jsp" class="list-group-item active waves-effect">
                         <i class="fas fa-chart-pie mr-3"></i>Dashboard
                     </a>
@@ -77,7 +75,7 @@
                         <h4 class="mb-2 mb-sm-0 pt-1">
                             <a href="../dashboard.jsp" target="_blank">Dashboard</a>
                             <span>/</span>
-                            <span>Add Tarrif Zone</span>
+                            <span>Service Package</span>
                         </h4>
                         <form class="d-flex justify-content-center" action="searchResult.jsp" method="POST">
                             <!-- Default input -->
@@ -93,7 +91,7 @@
 
             <!--Card-->
             <div class="card">
-                <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Tarrif Zone</h3>
+                <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Service Package</h3>
 
                 <!--Card content-->
                 <div class="card-body">
@@ -105,10 +103,12 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <th class="text-center">Tarrif Zone Name</th>
-                                    <th class="text-center">Same Network</th>
-                                    <th class="text-center">Local</th>
-                                    <th class="text-center">Roaming</th>
+                                    <th class="text-center">Rate Plan</th>
+                                    <th class="text-center">Service</th>
+                                    <th class="text-center">Time Package</th>
+                                    <th class="text-center">Tarrif Zone</th>
+                                    <th class="text-center">Free Units</th>
+                                    <th class="text-center">Rate</th>
                                     <th class="text-center">Submit</th>
                                     <th class="text-center">Remove</th>
                                 </tr>
@@ -116,20 +116,22 @@
                             <tbody>
                                 <%
 //                                            ProductDAO productDAO = new ProductDAO();
-                                    tarrifZoneDao tfd = new tarrifZoneDao();
-                                    ArrayList<tarrifZone> alltarrifZone = tfd.getAll();
+                                    ServiceDao sd = new ServiceDao();
+                                    ArrayList<Service> allService = sd.getAll();
 //                                            ArrayList<Category> allCategories = new ArrayList<>();
 //                                            allCategories.add(new Category(1, "mobiles"));
 //                                            allCategories.add(new Category(2, "laptops"));
 //
-                                    for (int i = 0; i < alltarrifZone.size(); i++) {
+                                    for (int i = 0; i < allService.size(); i++) {
                                 %>
-                                <tr id="<%=alltarrifZone.get(i).getId()%>">
+                                <tr id="<%=allService.get(i).getId()%>">
                                     <td class="pt-3-half"><%=i + 1%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=alltarrifZone.get(i).getName()%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=alltarrifZone.get(i).isSame_net()%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=alltarrifZone.get(i).isLocal()%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=alltarrifZone.get(i).isRoaming()%></td>
+                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getName()%></td>
+                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).isRated()%></td>
+                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getType()%></td>
+                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getType()%></td>
+                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getType()%></td>
+                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getType()%></td>
                                     <td>
                                         <span class="table-submit"><button type="button"
                                                                            class="btn btn-primary btn-rounded btn-sm my-0">Submit</button></span>
@@ -212,7 +214,7 @@
             // Animations initialization
             new WOW().init();
         </script>
-        <script src="../js/addTarrifZone.js"></script>
+        <script src="../js/ServicePackage.js"></script>
 
 
     </body>

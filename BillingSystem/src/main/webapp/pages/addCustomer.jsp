@@ -30,22 +30,24 @@
                 <a class="logo-wrapper waves-effect">
                     <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
                 </a>
-                <div class="list-group list-group-flush">
+               <div class="list-group list-group-flush">
                     <a href="../dashboard.jsp" class="list-group-item active waves-effect">
                         <i class="fas fa-chart-pie mr-3"></i>Dashboard
                     </a>
                     <a href="service.jsp" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-robot mr-3"></i>Add Service</a>
+                        <i class="fas fa-robot mr-3"></i>Services</a>
                     <a href="timePackage.jsp" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-clock mr-3"></i>Add Time Package</a>
+                        <i class="fas fa-clock mr-3"></i>Time Package</a>
                     <a href="tarrifZone.jsp" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-coins mr-3"></i>Add Tarrif Zone</a>
+                        <i class="fas fa-coins mr-3"></i>Tarrif Zone</a>
                     <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-box mr-3"></i>Add Rateplan</a>
+                        <i class="fas fa-box mr-3"></i>Rate plan</a>
+                    <a href="ServicePackage.jsp" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-chart-pie mr-3"></i>Service Package</a>
                     <a href="addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-user mr-3"></i>Add Customer</a>
+                        <i class="fas fa-user mr-3"></i>Customers</a>
                     <a href="viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-file-invoice mr-3"></i>View Billing</a>
+                        <i class="fas fa-file-invoice mr-3"></i>Billing</a>
 
                 </div>
             </div>
