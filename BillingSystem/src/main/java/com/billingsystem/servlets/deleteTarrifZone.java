@@ -5,8 +5,8 @@
  */
 package com.billingsystem.servlets;
 
-import com.billingsystem.daos.ServiceDao;
-import com.billingsystem.entities.Service;
+import com.billingsystem.daos.tarrifZoneDao;
+import com.billingsystem.entities.tarrifZone;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,17 +17,21 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author moham
  */
-public class addService extends HttpServlet {
+public class deleteTarrifZone extends HttpServlet {
 
-    ServiceDao sd = new ServiceDao();
-    Service s = new Service();
+   tarrifZoneDao tzd = new tarrifZoneDao();
+    tarrifZone tz = new tarrifZone();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        s.setName(req.getParameter("service_name"));
-        s.setRated(Boolean.parseBoolean(req.getParameter("rate")));
-        s.setType(req.getParameter("type"));
-        sd.save(s);
+
+        try {
+            tz.setId(Integer.parseInt(req.getParameter("tarrifZoneId")));
+            tzd.deleteTarrifZone(tz);
+            resp.setContentType("success");
+        } catch (Exception e) {
+            e.getMessage();
+        }
 
     }
 

@@ -20,6 +20,14 @@
         <servlet-name>deleteTimePackage</servlet-name>
         <servlet-class>com.billingsystem.servlets.deleteTimePackage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addTarrifZone</servlet-name>
+        <servlet-class>com.billingsystem.servlets.addTarrifZone</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteTarrifZone</servlet-name>
+        <servlet-class>com.billingsystem.servlets.deleteTarrifZone</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addCustomer</servlet-name>
         <url-pattern>/addCustomer</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>deleteTimePackage</servlet-name>
         <url-pattern>/deleteTimePackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addTarrifZone</servlet-name>
+        <url-pattern>/addTarrifZone</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteTarrifZone</servlet-name>
+        <url-pattern>/deleteTarrifZone</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
