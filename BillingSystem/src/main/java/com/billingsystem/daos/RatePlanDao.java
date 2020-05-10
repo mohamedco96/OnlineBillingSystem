@@ -6,7 +6,7 @@
 package com.billingsystem.daos;
 
 import com.billingsystem.database.Database;
-import com.billingsystem.entities.Customer;
+import com.billingsystem.entities.RatePlan;
 import com.billingsystem.entities.Service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,81 +19,78 @@ import java.util.ArrayList;
  *
  * @author moham
  */
-public class ServiceDao implements DAO<Service> {
+public class RatePlanDao implements DAO<RatePlan> {
 
     private final Connection conn = Database.getConnection();
 
     @Override
-    public Service get(int id) {
+    public RatePlan get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Service> getAll() {
-        ArrayList<Service> allService = new ArrayList<>();
-        String customerJoinRatePlanQuery = "select * from service";
+    public ArrayList<RatePlan> getAll() {
+        ArrayList<RatePlan> allRatePlan = new ArrayList<>();
+        String customerJoinRatePlanQuery = "select * from rate_plan";
 
         try (
-            Statement stmt1 = conn.createStatement();) {
+                Statement stmt1 = conn.createStatement();) {
             ResultSet rs1 = stmt1.executeQuery(customerJoinRatePlanQuery);
             while (rs1.next()) {
-                Service s = new Service();
+                RatePlan s = new RatePlan();
                 s.setId(rs1.getInt("id"));
                 s.setName(rs1.getString("name"));
-                s.setRated(rs1.getBoolean("is_rated"));
-                s.setType(rs1.getString("type"));
+                s.setMonthlyFees(rs1.getFloat("monthly_fees"));
 
-                allService.add(s);
+                allRatePlan.add(s);
 
             }
         } catch (SQLException ex) {
-            System.out.println("##### Service get all faild: \n" + ex.getMessage());
+            System.out.println("##### RatePlan get all faild: \n" + ex.getMessage());
         }
-        return allService;
+        return allRatePlan;
     }
 
     @Override
-    public boolean save(Service s) {
+    public boolean save(RatePlan t) {
         boolean operationSuccess = true;
-        String sqlCommand = "insert into service(name,is_rated,type) values (?,?,?)";
+        String sqlCommand = "insert into rate_plan (name,monthly_fees) values (?,?)";
 
         try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {
-            preparedStatment.setString(1, s.getName());
-            preparedStatment.setBoolean(2, s.isRated());
-            preparedStatment.setString(3, s.getType());
+            preparedStatment.setString(1, t.getName());
+            preparedStatment.setFloat(2, t.getMonthlyFees());
 
             preparedStatment.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("##### Service insert faild: \n" + ex.getMessage());
+            System.out.println("##### RatePlan insert faild: \n" + ex.getMessage());
             operationSuccess = false;
         }
         return operationSuccess;
     }
 
     @Override
-    public boolean update(Service t) {
+    public boolean update(RatePlan t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public boolean deleteService(Service s) {
-        boolean operationSuccess = true;
-        String sqlCommand = "delete from service where id=?";
-
-        try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {
-            preparedStatment.setInt(1, s.getId());
-            preparedStatment.executeUpdate();
-
-        } catch (SQLException ex) {
-            System.out.println("##### Service delete faild: \n" + ex.getMessage());
-            operationSuccess = false;
-        }
-        return operationSuccess;
     }
 
     @Override
     public boolean delete(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public boolean deleteRatePlan(RatePlan t) {
+        boolean operationSuccess = true;
+        String sqlCommand = "delete from rate_plan where id=?";
 
+        try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {
+            preparedStatment.setInt(1, t.getId());
+            preparedStatment.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("##### RatePlan delete faild: \n" + ex.getMessage());
+            operationSuccess = false;
+        }
+        return operationSuccess;
+    }
 }

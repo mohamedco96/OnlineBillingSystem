@@ -28,6 +28,14 @@
         <servlet-name>deleteTarrifZone</servlet-name>
         <servlet-class>com.billingsystem.servlets.deleteTarrifZone</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddRatePlan</servlet-name>
+        <servlet-class>com.billingsystem.servlets.AddRatePlan</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteRatePlan</servlet-name>
+        <servlet-class>com.billingsystem.servlets.DeleteRatePlan</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addCustomer</servlet-name>
         <url-pattern>/addCustomer</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>deleteTarrifZone</servlet-name>
         <url-pattern>/deleteTarrifZone</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddRatePlan</servlet-name>
+        <url-pattern>/AddRatePlan</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteRatePlan</servlet-name>
+        <url-pattern>/DeleteRatePlan</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

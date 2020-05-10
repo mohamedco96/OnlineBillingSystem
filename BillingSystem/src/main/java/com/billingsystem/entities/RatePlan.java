@@ -14,6 +14,16 @@ public class RatePlan {
     private int id;
     private String name;
     private float monthlyFees;
+    private ServicePackage SvcPackage;
+
+    public ServicePackage getSvcPackage() {
+        return SvcPackage;
+    }
+
+    public void setSvcPackage(ServicePackage SvcPackage) {
+        this.SvcPackage = SvcPackage;
+    }
+    
     
     public int getId() {
         return id;

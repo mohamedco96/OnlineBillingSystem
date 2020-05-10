@@ -101,7 +101,7 @@ public class CustomerDAO implements DAO<Customer>{
 
         try (
                 Statement stmt1 = conn.createStatement();
-                Statement stmt2 = conn.createStatement()
+                Statement stmt2 = conn.createStatement();
             ) {
             ResultSet rs1 = stmt1.executeQuery(customerJoinRatePlanQuery);
             if (rs1.next()) {
