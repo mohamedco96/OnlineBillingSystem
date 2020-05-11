@@ -9,6 +9,7 @@ import com.billingsystem.database.Database;
 import com.billingsystem.entities.Customer;
 import com.billingsystem.entities.*;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -82,6 +83,8 @@ public class CustomerDAO implements DAO<Customer>{
             preparedStatment.setString(4, customer.getAddress());
             preparedStatment.setString(5, customer.getEmail());
             preparedStatment.setInt(6, customer.getRatePlan().getId());
+//            preparedStatment.setDate(7, (Date) customer.getBillingDate());
+//            System.out.println(customer.getBillingDate());
             preparedStatment.executeUpdate();
 
         } catch (SQLException ex) {

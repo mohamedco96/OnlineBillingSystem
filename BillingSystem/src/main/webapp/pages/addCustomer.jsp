@@ -4,6 +4,11 @@
     Author     : moham
 --%>
 
+<%@page import="com.billingsystem.entities.Service"%>
+<%@page import="com.billingsystem.daos.ServiceDao"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.billingsystem.entities.RatePlan"%>
+<%@page import="com.billingsystem.daos.RatePlanDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +35,7 @@
                 <a class="logo-wrapper waves-effect">
                     <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
                 </a>
-               <div class="list-group list-group-flush">
+                <div class="list-group list-group-flush">
                     <a href="../dashboard.jsp" class="list-group-item active waves-effect">
                         <i class="fas fa-chart-pie mr-3"></i>Dashboard
                     </a>
@@ -72,7 +77,7 @@
             </div>
             <div class="container" style="margin-top: 50px;">
                 <h3 style="margin-bottom: 20px">Customer Profile</h3>
-                <form class="needs-validation" action="addCustomer" method="POST" novalidate>
+                <form class="needs-validation" action="../addCustomer" method="POST" novalidate>
                     <div class="form-row">
                         <input type="text" class="form-control mb-4" id="validationCustom01" placeholder="Full name" name="name" required>
                         <div class="valid-feedback">
@@ -96,26 +101,47 @@
                         <div class="invalid-feedback">
                             Please provide a valid Email.
                         </div>
+                        <input type="date" class="form-control mb-4" id="validationCustom04"  name="billing_date" required>
+                        <div class="invalid-feedback">
+                            Please provide a Date.
+                        </div>
                         <label>Profile</label>
+                        <%
+                            RatePlanDao rpd = new RatePlanDao();
+                            ArrayList<RatePlan> allRatePlan = rpd.getAll();
+                            
+                            ServiceDao sd = new ServiceDao();
+                            ArrayList<Service> AllRecurringServices = sd.getAllRecurringServices();
+                            ArrayList<Service> AllOneTimeFee = sd.getAllOneTimeFee();
+                        %>
+
+
                         <select class="browser-default custom-select mb-4" name="profile">
                             <option selected>select Profile from menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <%
+                                for (int i = 0; i < allRatePlan.size(); i++) {
+                            %>
+                            <option value="<%=allRatePlan.get(i).getId()%>"><%=allRatePlan.get(i).getName()%></option>
+                            <%}%>
                         </select>
+
                         <label>Recurring Services</label>
                         <select class="browser-default custom-select mb-4" name="profile">
                             <option selected>select Recurring Services from menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <%
+                                for (int i = 0; i < AllRecurringServices.size(); i++) {
+                            %>
+                            <option value="<%=AllRecurringServices.get(i).getId()%>"><%=AllRecurringServices.get(i).getName()%></option>
+                            <%}%>
                         </select>
                         <label>One time fee</label>
                         <select class="browser-default custom-select mb-4" name="profile">
                             <option selected>select One time fee from menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <%
+                                for (int i = 0; i < AllOneTimeFee.size(); i++) {
+                            %>
+                            <option value="<%=AllOneTimeFee.get(i).getId()%>"><%=AllOneTimeFee.get(i).getName()%></option>
+                            <%}%>
                         </select>
                     </div>
                     <button class="btn btn-primary btn-sm" type="submit">Submit</button>

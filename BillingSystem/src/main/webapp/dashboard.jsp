@@ -3,6 +3,8 @@
     Created on : May 1, 2020, 3:03:27 PM
     Author     : moham
 --%>
+<%@page import="com.billingsystem.entities.RatePlan"%>
+<%@page import="com.billingsystem.daos.RatePlanDao"%>
 <%@page import="com.billingsystem.daos.ServiceDao"%>
 <%@page import="com.billingsystem.entities.Service"%>
 <%@page import="java.util.ArrayList"%>
@@ -90,8 +92,10 @@
                 // Vector<Users> listOfUsers = db.retrieveAllCustomers();
                 CustomerDAO cd = new CustomerDAO();
                 ServiceDao sd = new ServiceDao();
+                RatePlanDao rpd = new RatePlanDao();
                 ArrayList<Customer> listOfCustomer = cd.getAll();
                 ArrayList<Service> listOfService = sd.getAll();
+                ArrayList<RatePlan> listOfRatePlan = rpd.getAll();
             %>
             <div class="container">
                 <div class="row">
@@ -106,8 +110,8 @@
                         </div>
                     </div>
                     <div class="four col-md-3">
-                        <div class="counter-box"> <i class="fa fa-user"></i> <span class="counter">289</span>
-                            <p>Service</p>
+                        <div class="counter-box"> <i class="fa fa-user"></i> <span class="counter"><%=listOfRatePlan.size()%></span>
+                            <p>Rate Plan</p>
                         </div>
                     </div>
                     <div class="four col-md-3">
@@ -152,6 +156,9 @@
                                     <th class="th-lg">
                                         Profile
                                     </th>
+                                    <th class="th-lg">
+                                        Billing Date
+                                    </th>
                                 </tr>
                             </thead>
                             <!--Table head-->
@@ -168,6 +175,7 @@
                                     <td><%=c.getAddress()%></td>
                                     <td><%=c.getEmail()%></td>
                                     <td><%=c.getRatePlan().getName()%></td>
+                                    <td><%=c.getBillingDate()%></td>
                                 </tr>
                                 <% }%> 
                             </tbody>

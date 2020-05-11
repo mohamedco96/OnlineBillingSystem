@@ -10,7 +10,13 @@ package com.billingsystem.servlets;
 import com.billingsystem.daos.*;
 import com.billingsystem.entities.*;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,8 +40,24 @@ public class addCustomer extends HttpServlet {
 //                 req.getParameter("addr"), req.getParameter("email"), req.getParameter("profile"));
 //                      
 //        boolean addCustomer = db.addCustomer(user);
-//        resp.sendRedirect("./dashboard.jsp");
+        c.setName(req.getParameter("name"));
+        c.setNid(req.getParameter("nid"));
+        c.setPhone(req.getParameter("dnum"));
+        c.setAddress(req.getParameter("addr"));
+        c.setEmail(req.getParameter("email"));
+//        String string = req.getParameter("billing_date");
+//        System.out.println(string);
+//        Date date1 = null;
+//        try {
+//             date1 = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(string);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(addCustomer.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        c.setBillingDate(date1);
+        c.getRatePlan().setId(Integer.parseInt(req.getParameter("profile")));
         cd.save(c);
+        resp.sendRedirect("./dashboard.jsp");
 
     }
 

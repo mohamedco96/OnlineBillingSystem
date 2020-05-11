@@ -34,7 +34,7 @@ public class ServiceDao implements DAO<Service> {
         String customerJoinRatePlanQuery = "select * from service";
 
         try (
-            Statement stmt1 = conn.createStatement();) {
+                Statement stmt1 = conn.createStatement();) {
             ResultSet rs1 = stmt1.executeQuery(customerJoinRatePlanQuery);
             while (rs1.next()) {
                 Service s = new Service();
@@ -48,6 +48,52 @@ public class ServiceDao implements DAO<Service> {
             }
         } catch (SQLException ex) {
             System.out.println("##### Service get all faild: \n" + ex.getMessage());
+        }
+        return allService;
+    }
+
+    public ArrayList<Service> getAllRecurringServices() {
+        ArrayList<Service> allService = new ArrayList<>();
+        String customerJoinRatePlanQuery = "select * from service where type='Recurring Services'";
+
+        try (
+                Statement stmt1 = conn.createStatement();) {
+            ResultSet rs1 = stmt1.executeQuery(customerJoinRatePlanQuery);
+            while (rs1.next()) {
+                Service s = new Service();
+                s.setId(rs1.getInt("id"));
+                s.setName(rs1.getString("name"));
+                s.setRated(rs1.getBoolean("is_rated"));
+                s.setType(rs1.getString("type"));
+
+                allService.add(s);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("##### RecurringServices get all faild: \n" + ex.getMessage());
+        }
+        return allService;
+    }
+
+    public ArrayList<Service> getAllOneTimeFee() {
+        ArrayList<Service> allService = new ArrayList<>();
+        String customerJoinRatePlanQuery = "select * from service where type='One time fee'";
+
+        try (
+                Statement stmt1 = conn.createStatement();) {
+            ResultSet rs1 = stmt1.executeQuery(customerJoinRatePlanQuery);
+            while (rs1.next()) {
+                Service s = new Service();
+                s.setId(rs1.getInt("id"));
+                s.setName(rs1.getString("name"));
+                s.setRated(rs1.getBoolean("is_rated"));
+                s.setType(rs1.getString("type"));
+
+                allService.add(s);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("##### One time fee get all faild: \n" + ex.getMessage());
         }
         return allService;
     }
