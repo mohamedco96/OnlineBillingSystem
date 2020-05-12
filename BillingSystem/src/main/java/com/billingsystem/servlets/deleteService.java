@@ -29,7 +29,8 @@ public class deleteService extends HttpServlet {
         try {
             s.setId(Integer.parseInt(req.getParameter("service_id")));
             sd.deleteService(s);
-            resp.setContentType("success");
+            resp.getWriter().println("success");
+//            resp.setContentType("success");
         } catch (Exception e) {
             e.getMessage();
         }
