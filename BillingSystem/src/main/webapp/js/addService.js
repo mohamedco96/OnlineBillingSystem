@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-const $tableID = $('#table');
+        const $tableID = $('#table');
         const $BTN = $('#export-btn');
         const $EXPORT = $('#export');
         const newTr = `
@@ -37,8 +37,7 @@ const $tableID = $('#table');
 if ($tableID.find('tbody tr').length === 0) {
 
 $('tbody').append(newTr);
-}
-else{
+} else {
 const $clone = $tableID.find('tbody tr').last();
         var newOrder = (parseInt($clone.find('td:eq(0)').text())) + 1;
         $('tbody').append(newTr);
@@ -49,17 +48,26 @@ const $clone = $tableID.find('tbody tr').last();
         $tableID.on('click', '.table-remove', function () {
         var currentRow = $(this).closest('tr');
                 var serviceId = currentRow.attr("id");
+                var ServiceName = currentRow.find('td:eq(1)').text();
                 var clickedBtn = $(this);
                 if (serviceId === "0")
                 $(this).parents('tr').detach();
-                else{
+                else {
                 $.post('../deleteService', {
                 service_id: serviceId
                 },
                         function (response) {
                         if (response === "success")
                                 clickedBtn.parents('tr').detach();
-                                alert(response);
+                                var para = document.createElement("P");
+                                var t = document.createTextNode("Delete "+ServiceName+" Successfully");
+                                para.appendChild(t);
+                                document.getElementById("delete").appendChild(para);
+                                var x = document.getElementById("delete");
+                                x.className = "show";
+                                setTimeout(function () {
+                                x.className = x.className.replace("show", "");
+                                        }, 3000);
                         });
                 }
         });
@@ -70,24 +78,31 @@ const $clone = $tableID.find('tbody tr').last();
                 var ServiceName = currentRow.find('td:eq(1)').text();
                 var rating = currentRow.find('td:eq(2)').text();
                 var type = currentRow.find('td:eq(3)').children(0).children("option:selected").val();
-                alert("++" + ServiceName + "," + rating + "," + type)
+//                alert("++" + ServiceName + "," + rating + "," + type)
                 //POST request
                 $.post('../addService', {
-                        service_name: ServiceName,
+                service_name: ServiceName,
                         rate: rating,
                         type: type,
-                        
                 },
                         function (response) {
-                        if (response !== "failed"){
+                        if (response !== "failed") {
                         currentRow.attr("id", response);
-                                alert("success, new ID = " + response);
-                        }
-                        else
+//                                alert("success, new ID = " + response);
+                                var para = document.createElement("P");
+                                var t = document.createTextNode("Add "+ServiceName+" Successfully");
+                                para.appendChild(t);
+                                document.getElementById("success").appendChild(para);
+                                var x = document.getElementById("success");
+                                x.className = "show";
+                                setTimeout(function () {
+                                x.className = x.className.replace("show", "");
+                                        }, 3000);
+                        } else
                                 alert("failed");
                         });
                 });
-        // A few jQuery helpers for exporting only
+// A few jQuery helpers for exporting only
         jQuery.fn.pop = [].pop;
         jQuery.fn.shift = [].shift;
         $BTN.on('click', () => {
@@ -113,4 +128,4 @@ const $clone = $tableID.find('tbody tr').last();
                 });
                 // Output the result
                 $EXPORT.text(JSON.stringify(data));
-        });
+                });

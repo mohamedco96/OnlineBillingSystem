@@ -20,6 +20,8 @@ import java.util.ArrayList;
  * @author moham
  */
 public class RatePlanDao implements DAO<RatePlan> {
+    
+  
 
     private final Connection conn = Database.getConnection();
 
