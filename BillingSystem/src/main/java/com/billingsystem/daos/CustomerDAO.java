@@ -9,11 +9,11 @@ import com.billingsystem.database.Database;
 import com.billingsystem.entities.Customer;
 import com.billingsystem.entities.*;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -47,7 +47,7 @@ public class CustomerDAO implements DAO<Customer>{
                 customer.setAddress(rs1.getString("address"));
                 customer.setPhone(rs1.getString("phone"));
                 customer.setNid(rs1.getString("nid"));
-                customer.setBillingDate(rs1.getDate("billing_date"));
+                customer.setBillingDate(rs1.getObject("billing_date", LocalDate.class));
                 customer.getRatePlan().setId(rs1.getInt("rate_plan_id"));
                 customer.getRatePlan().setName(rs1.getString("rpname"));
                 customer.getRatePlan().setMonthlyFees(rs1.getFloat("monthly_fees"));
@@ -74,7 +74,7 @@ public class CustomerDAO implements DAO<Customer>{
     @Override
     public boolean save(Customer customer) {
         boolean operationSuccess = true;
-        String sqlCommand = "INSERT INTO customer (name, nid, phone, address, email, rate_plan_id) VALUES(?, ?, ?, ?, ?, ?)";
+        String sqlCommand = "INSERT INTO customer (name, nid, phone, address, email, rate_plan_id, billing_date) VALUES(?, ?, ?, ?, ?, ?, ?)";
 
         try(PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {
             preparedStatment.setString(1, customer.getName());
@@ -83,7 +83,7 @@ public class CustomerDAO implements DAO<Customer>{
             preparedStatment.setString(4, customer.getAddress());
             preparedStatment.setString(5, customer.getEmail());
             preparedStatment.setInt(6, customer.getRatePlan().getId());
-//            preparedStatment.setDate(7, (Date) customer.getBillingDate());
+            preparedStatment.setObject(7, customer.getBillingDate());
 //            System.out.println(customer.getBillingDate());
             preparedStatment.executeUpdate();
 
@@ -114,7 +114,7 @@ public class CustomerDAO implements DAO<Customer>{
                 customer.setEmail(rs1.getString("email"));
                 customer.setAddress(rs1.getString("address"));
                 customer.setNid(rs1.getString("nid"));
-                customer.setBillingDate(rs1.getDate("billing_date"));
+                customer.setBillingDate(rs1.getObject("billing_date", LocalDate.class));
                 customer.getRatePlan().setId(rs1.getInt("rate_plan_id"));
                 customer.getRatePlan().setName(rs1.getString("rpname"));
                 customer.getRatePlan().setMonthlyFees(rs1.getFloat("monthly_fees"));
@@ -132,7 +132,6 @@ public class CustomerDAO implements DAO<Customer>{
                 }
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
             System.out.println("##### Customer search by phone faild: \n" + ex.getMessage());
         }
         return customer;
@@ -157,7 +156,7 @@ public class CustomerDAO implements DAO<Customer>{
                 customer.setEmail(rs1.getString("email"));
                 customer.setAddress(rs1.getString("address"));
                 customer.setNid(rs1.getString("nid"));
-                customer.setBillingDate(rs1.getDate("address"));
+                customer.setBillingDate(rs1.getObject("billing_date", LocalDate.class));
                 customer.getRatePlan().setId(rs1.getInt("rate_plan_id"));
                 customer.getRatePlan().setName(rs1.getString("rpname"));
                 customer.getRatePlan().setMonthlyFees(rs1.getFloat("monthly_fees"));

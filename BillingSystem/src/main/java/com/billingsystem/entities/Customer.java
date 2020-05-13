@@ -5,8 +5,8 @@
  */
 package com.billingsystem.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +20,7 @@ public class Customer {
     private String phone;
     private String email;
     private String address;
-    private Date billingDate;
+    private LocalDate billingDate;
     private RatePlan ratePlan;
     private List<Service> addOnServices;
 
@@ -77,11 +77,11 @@ public class Customer {
         this.address = address;
     }
 
-    public Date getBillingDate() {
+    public LocalDate getBillingDate() {
         return billingDate;
     }
 
-    public void setBillingDate(Date billingDate) {
+    public void setBillingDate(LocalDate billingDate) {
         this.billingDate = billingDate;
     }
 
