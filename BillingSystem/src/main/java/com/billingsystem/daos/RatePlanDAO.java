@@ -95,4 +95,9 @@ public class RatePlanDAO implements DAO<RatePlan> {
         }
         return operationSuccess;
     }
+
+    @Override
+    public int saveAndReturnId(RatePlan t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-        const $tableID = $('#table');
-        const $BTN = $('#export-btn');
-        const $EXPORT = $('#export');
-        const newTr = `
+const $tableID = $('#table');
+const $BTN = $('#export-btn');
+const $EXPORT = $('#export');
+const newTr = `
 <tr class="hide" id="0">
   <td class="pt-3-half">1</td>
   <td class="pt-3-half" contenteditable="true"></td>
@@ -45,87 +45,94 @@ const $clone = $tableID.find('tbody tr').last();
 }
 //  $tableID.find('table').append($clone);
 });
-        $tableID.on('click', '.table-remove', function () {
-        var currentRow = $(this).closest('tr');
-                var serviceId = currentRow.attr("id");
-                var ServiceName = currentRow.find('td:eq(1)').text();
-                var clickedBtn = $(this);
-                if (serviceId === "0")
-                $(this).parents('tr').detach();
-                else {
-                $.post('../deleteService', {
+$tableID.on('click', '.table-remove', function () {
+    var currentRow = $(this).closest('tr');
+    var serviceId = currentRow.attr("id");
+    var clickedBtn = $(this);
+    var ServiceName = currentRow.find('td:eq(1)').text();
+//    alert(serviceId);
+    if(serviceId === "0")
+       $(this).parents('tr').detach();
+    else{
+        $.post('../deleteService', {
                 service_id: serviceId
-                },
-                        function (response) {
-                        if (response === "success")
-                                clickedBtn.parents('tr').detach();
-                                var para = document.createElement("P");
-                                var t = document.createTextNode("Delete "+ServiceName+" Successfully");
-                                para.appendChild(t);
-                                document.getElementById("delete").appendChild(para);
-                                var x = document.getElementById("delete");
-                                x.className = "show";
-                                setTimeout(function () {
-                                x.className = x.className.replace("show", "");
-                                        }, 3000);
-                        });
+            },
+            function (response) {
+                if(response === "success"){
+                    clickedBtn.parents('tr').detach();
+                    var para = document.createElement("P");
+                    var t = document.createTextNode("Delete "+ServiceName+" Successfully");
+                    para.appendChild(t);
+                    var x = document.getElementById("delete");
+                    x.innerHTML = '';
+                    x.appendChild(para);
+                    x.className = "show";
+                    setTimeout(function () {
+                        x.className = x.className.replace("show", "");
+                    }, 3000);
                 }
-        });
-        $tableID.on('click', '.table-submit', function () {
+            }
+        );
+    }
+});
+
+$tableID.on('click', '.table-submit', function () {
 //           alert("t");
-        var currentRow = $(this).closest('tr');
-                var trid = $(this).closest('tr').attr('id');
-                var ServiceName = currentRow.find('td:eq(1)').text();
-                var rating = currentRow.find('td:eq(2)').text();
-                var type = currentRow.find('td:eq(3)').children(0).children("option:selected").val();
-//                alert("++" + ServiceName + "," + rating + "," + type)
-                //POST request
-                $.post('../addService', {
-                service_name: ServiceName,
-                        rate: rating,
-                        type: type,
-                },
-                        function (response) {
-                        if (response !== "failed") {
-                        currentRow.attr("id", response);
-//                                alert("success, new ID = " + response);
-                                var para = document.createElement("P");
-                                var t = document.createTextNode("Add "+ServiceName+" Successfully");
-                                para.appendChild(t);
-                                document.getElementById("success").appendChild(para);
-                                var x = document.getElementById("success");
-                                x.className = "show";
-                                setTimeout(function () {
-                                x.className = x.className.replace("show", "");
-                                        }, 3000);
-                        } else
-                                alert("failed");
-                        });
-                });
+var currentRow = $(this).closest('tr');
+        var trid = $(this).closest('tr').attr('id');
+        var ServiceName = currentRow.find('td:eq(1)').text();
+        var rating = currentRow.find('td:eq(2)').text();
+        var type = currentRow.find('td:eq(3)').children(0).children("option:selected").val();
+        //POST request
+        $.post('../addService', {
+            service_id: trid,
+            service_name: ServiceName,
+            rate: rating,
+            type: type
+        },
+            function (response) {
+                if (response !== "failed") {
+                    currentRow.attr("id", response);
+                    var para = document.createElement("P");
+                    var t;
+                    if(trid === "0")
+                        t = document.createTextNode("Added " + ServiceName +" Successfully");
+                    else
+                        t = document.createTextNode("Updated " + ServiceName +" Successfully");
+                    para.appendChild(t);
+                    var x = document.getElementById("success");
+                    x.innerHTML = '';
+                    x.appendChild(para);
+                    x.className = "show";
+                    setTimeout(function () {
+                        x.className = x.className.replace("show", "");
+                    }, 3000);
+                } else
+                    alert("failed");
+            }
+        );
+});
 // A few jQuery helpers for exporting only
-        jQuery.fn.pop = [].pop;
-        jQuery.fn.shift = [].shift;
-        $BTN.on('click', () => {
-
-        const $rows = $tableID.find('tr:not(:hidden)');
-                const headers = [];
-                const data = [];
-                // Get the headers (add special header logic here)
-                $($rows.shift()).find('th:not(:empty)').each(function () {
-
+jQuery.fn.pop = [].pop;
+jQuery.fn.shift = [].shift;
+$BTN.on('click', () => {
+    const $rows = $tableID.find('tr:not(:hidden)');
+    const headers = [];
+    const data = [];
+    // Get the headers (add special header logic here)
+    $($rows.shift()).find('th:not(:empty)').each(function () {
         headers.push($(this).text().toLowerCase());
+    });
+    // Turn all existing rows into a loopable array
+    $rows.each(function () {
+        const $td = $(this).find('td');
+        const h = {};
+        // Use the headers from earlier to name our hash keys
+        headers.forEach((header, i) => {
+            h[header] = $td.eq(i).text();
         });
-                // Turn all existing rows into a loopable array
-                $rows.each(function () {
-                const $td = $(this).find('td');
-                        const h = {};
-                        // Use the headers from earlier to name our hash keys
-                        headers.forEach((header, i) => {
-
-                        h[header] = $td.eq(i).text();
-                        });
-                        data.push(h);
-                });
-                // Output the result
-                $EXPORT.text(JSON.stringify(data));
-                });
+        data.push(h);
+    });
+    // Output the result
+    $EXPORT.text(JSON.stringify(data));
+});

@@ -19,6 +19,8 @@ public interface DAO<T> {
     ArrayList<T> getAll();
      
     boolean save(T t);
+    
+    int saveAndReturnId(T t);
      
     boolean update(T t);
      

@@ -116,10 +116,48 @@ public class ServiceDAO implements DAO<Service> {
         }
         return operationSuccess;
     }
+    
+    @Override
+    public int saveAndReturnId(Service s) {
+        int newRecordId;
+        String sqlCommand = "insert into service(name,is_rated,type) values (?,?,?)";
+
+        try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatment.setString(1, s.getName());
+            preparedStatment.setBoolean(2, s.isRated());
+            preparedStatment.setString(3, s.getType());
+
+            preparedStatment.executeUpdate();
+            ResultSet generatedKeys = preparedStatment.getGeneratedKeys();
+            generatedKeys.next();
+            newRecordId = generatedKeys.getInt(1);
+
+        } catch (SQLException ex) {
+            newRecordId = 0;
+            System.out.println("##### Service insert & return id faild: \n" + ex.getMessage());
+        }
+        return newRecordId;
+    }
 
     @Override
-    public boolean update(Service t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean update(Service s) {
+        boolean operationSuccess = true;
+        String sqlCommand = "update service set name = ?, is_rated = ?, type = ?"
+                + " where id = ?";
+
+        try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {
+            preparedStatment.setString(1, s.getName());
+            preparedStatment.setBoolean(2, s.isRated());
+            preparedStatment.setString(3, s.getType());
+            preparedStatment.setInt(4, s.getId());
+            
+            preparedStatment.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("##### Service insert faild: \n" + ex.getMessage());
+            operationSuccess = false;
+        }
+        return operationSuccess;
     }
 
     public boolean deleteService(Service s) {

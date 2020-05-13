@@ -27,11 +27,26 @@ public class ServiceUpdateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        s.setId(Integer.parseInt(req.getParameter("service_id")));
         s.setName(req.getParameter("service_name"));
         s.setRated(Boolean.parseBoolean(req.getParameter("rate")));
         s.setType(req.getParameter("type"));
-        sd.save(s);
-
+        
+        int newId = 0;
+        boolean updateSuccess = false;
+        
+        if(s.getId() == 0)
+            newId = sd.saveAndReturnId(s);
+        else
+            updateSuccess = sd.update(s);
+        
+        resp.setContentType("text/plain");
+        if(newId != 0)
+            resp.getWriter().write(Integer.toString(newId));
+        else if(updateSuccess)
+            resp.getWriter().write(Integer.toString(s.getId()));
+        else
+            resp.getWriter().write("failed");
     }
 
 }

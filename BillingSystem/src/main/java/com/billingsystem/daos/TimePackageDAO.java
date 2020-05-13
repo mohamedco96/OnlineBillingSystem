@@ -98,4 +98,9 @@ public class TimePackageDAO implements DAO<TimePackage> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public int saveAndReturnId(TimePackage t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
