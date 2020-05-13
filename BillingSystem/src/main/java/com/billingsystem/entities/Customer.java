@@ -22,10 +22,11 @@ public class Customer {
     private String address;
     private Date billingDate;
     private RatePlan ratePlan;
-    private List<Service> addOnServices=new ArrayList<>();
+    private List<Service> addOnServices;
 
     public Customer() {
         this.ratePlan = new RatePlan();
+        addOnServices=new ArrayList<>();
     }
 
     public int getId() {

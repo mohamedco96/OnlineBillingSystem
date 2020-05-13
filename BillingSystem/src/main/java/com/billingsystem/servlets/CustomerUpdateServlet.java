@@ -18,6 +18,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +27,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author moham
  */
-public class addCustomer extends HttpServlet {
+@WebServlet(value = "/addCustomer")
+public class CustomerUpdateServlet extends HttpServlet {
 
 //    Users user;
 //    OldDatabase db = new OldDatabase();
@@ -39,7 +41,7 @@ public class addCustomer extends HttpServlet {
 //        user = new Users(req.getParameter("name"), req.getParameter("nid"), req.getParameter("dnum"),
 //                 req.getParameter("addr"), req.getParameter("email"), req.getParameter("profile"));
 //                      
-//        boolean addCustomer = db.addCustomer(user);
+//        boolean CustomerUpdateServlet = db.CustomerUpdateServlet(user);
         c.setName(req.getParameter("name"));
         c.setNid(req.getParameter("nid"));
         c.setPhone(req.getParameter("dnum"));
@@ -51,7 +53,7 @@ public class addCustomer extends HttpServlet {
 //        try {
 //             date1 = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(string);
 //        } catch (ParseException ex) {
-//            Logger.getLogger(addCustomer.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(CustomerUpdateServlet.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //
 //        c.setBillingDate(date1);

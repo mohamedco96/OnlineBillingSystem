@@ -14,8 +14,8 @@ public class ServicePackage {
     private int id;
     private RatePlan RatePlan;
     private Service service;
-    private timePackage timePackage;
-    private tarrifZone tarrifZone;
+    private TimePackage timePackage;
+    private TariffZone tarrifZone;
     private int free_units;
     private float rate;
 
@@ -43,19 +43,19 @@ public class ServicePackage {
         this.service = service;
     }
 
-    public timePackage getTimePackage() {
+    public TimePackage getTimePackage() {
         return timePackage;
     }
 
-    public void setTimePackage(timePackage timePackage) {
+    public void setTimePackage(TimePackage timePackage) {
         this.timePackage = timePackage;
     }
 
-    public tarrifZone getTarrifZone() {
+    public TariffZone getTarrifZone() {
         return tarrifZone;
     }
 
-    public void setTarrifZone(tarrifZone tarrifZone) {
+    public void setTarrifZone(TariffZone tarrifZone) {
         this.tarrifZone = tarrifZone;
     }
 

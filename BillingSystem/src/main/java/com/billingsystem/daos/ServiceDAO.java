@@ -19,7 +19,7 @@ import java.util.ArrayList;
  *
  * @author moham
  */
-public class ServiceDao implements DAO<Service> {
+public class ServiceDAO implements DAO<Service> {
 
     private final Connection conn = Database.getConnection();
 

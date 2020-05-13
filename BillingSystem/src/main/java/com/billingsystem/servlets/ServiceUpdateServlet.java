@@ -5,10 +5,11 @@
  */
 package com.billingsystem.servlets;
 
-import com.billingsystem.daos.timePackageDao;
-import com.billingsystem.entities.timePackage;
+import com.billingsystem.daos.ServiceDAO;
+import com.billingsystem.entities.Service;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,21 +18,19 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author moham
  */
-public class deleteTimePackage extends HttpServlet {
+@WebServlet(value = "/addService")
 
-    timePackageDao tpd = new timePackageDao();
-    timePackage tp = new timePackage();
+public class ServiceUpdateServlet extends HttpServlet {
+
+    ServiceDAO sd = new ServiceDAO();
+    Service s = new Service();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        try {
-            tp.setId(Integer.parseInt(req.getParameter("TimePackage_id")));
-            tpd.deletetimePackage(tp);
-            resp.setContentType("success");
-        } catch (Exception e) {
-            e.getMessage();
-        }
+        s.setName(req.getParameter("service_name"));
+        s.setRated(Boolean.parseBoolean(req.getParameter("rate")));
+        s.setType(req.getParameter("type"));
+        sd.save(s);
 
     }
 

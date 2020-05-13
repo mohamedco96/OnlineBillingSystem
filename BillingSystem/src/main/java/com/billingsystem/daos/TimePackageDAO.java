@@ -6,8 +6,8 @@
 package com.billingsystem.daos;
 
 import com.billingsystem.database.Database;
-import com.billingsystem.entities.RatePlan;
 import com.billingsystem.entities.Service;
+import com.billingsystem.entities.TimePackage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,80 +19,83 @@ import java.util.ArrayList;
  *
  * @author moham
  */
-public class RatePlanDao implements DAO<RatePlan> {
-    
-  
+public class TimePackageDAO implements DAO<TimePackage> {
 
     private final Connection conn = Database.getConnection();
 
     @Override
-    public RatePlan get(int id) {
+    public TimePackage get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<RatePlan> getAll() {
-        ArrayList<RatePlan> allRatePlan = new ArrayList<>();
-        String customerJoinRatePlanQuery = "select * from rate_plan";
+    public ArrayList<TimePackage> getAll() {
+        ArrayList<TimePackage> alltimePackage = new ArrayList<>();
+        String customerJoinRatePlanQuery = "select * from time_pkg";
 
         try (
                 Statement stmt1 = conn.createStatement();) {
             ResultSet rs1 = stmt1.executeQuery(customerJoinRatePlanQuery);
             while (rs1.next()) {
-                RatePlan s = new RatePlan();
-                s.setId(rs1.getInt("id"));
-                s.setName(rs1.getString("name"));
-                s.setMonthlyFees(rs1.getFloat("monthly_fees"));
+                TimePackage tp = new TimePackage();
+                tp.setId(rs1.getInt("id"));
+                tp.setName(rs1.getString("name"));
+                tp.setStart(rs1.getString("start"));
+                tp.setFinish(rs1.getString("finish"));
+                tp.setDay(rs1.getString("day"));
 
-                allRatePlan.add(s);
+                alltimePackage.add(tp);
 
             }
         } catch (SQLException ex) {
-            System.out.println("##### RatePlan get all faild: \n" + ex.getMessage());
+            System.out.println("##### timePackage get all faild: \n" + ex.getMessage());
         }
-        return allRatePlan;
+        return alltimePackage;
     }
 
     @Override
-    public boolean save(RatePlan t) {
+    public boolean save(TimePackage t) {
         boolean operationSuccess = true;
-        String sqlCommand = "insert into rate_plan (name,monthly_fees) values (?,?)";
+        String sqlCommand = "insert into time_pkg(name,day) values (?,?)";
 
         try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {
             preparedStatment.setString(1, t.getName());
-            preparedStatment.setFloat(2, t.getMonthlyFees());
+//            preparedStatment.setString(2, t.getStart());
+//            preparedStatment.setString(3, t.getFinish());
+            preparedStatment.setString(2, t.getDay());
 
             preparedStatment.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("##### RatePlan insert faild: \n" + ex.getMessage());
+            System.out.println("##### timePackage insert faild: \n" + ex.getMessage());
             operationSuccess = false;
         }
         return operationSuccess;
     }
 
     @Override
-    public boolean update(RatePlan t) {
+    public boolean update(TimePackage t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public boolean deleteRatePlan(RatePlan t) {
-        boolean operationSuccess = true;
-        String sqlCommand = "delete from rate_plan where id=?";
+    public boolean deletetimePackage(TimePackage t) {
+         boolean operationSuccess = true;
+        String sqlCommand = "delete from time_pkg where id=?";
 
         try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {
             preparedStatment.setInt(1, t.getId());
             preparedStatment.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("##### RatePlan delete faild: \n" + ex.getMessage());
+            System.out.println("##### timePackage delete faild: \n" + ex.getMessage());
             operationSuccess = false;
         }
         return operationSuccess;
     }
+
+    @Override
+    public boolean delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

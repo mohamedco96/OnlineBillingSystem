@@ -9,13 +9,14 @@ package com.billingsystem.entities;
  *
  * @author moham
  */
-public class timePackage {
+public class TariffZone {
+
     private int id;
     private String name;
-    private String start;
-    private String finish;
-    private String day;
-    
+    private boolean same_net;
+    private boolean local;
+    private boolean roaming;
+
     public int getId() {
         return id;
     }
@@ -32,35 +33,28 @@ public class timePackage {
         this.name = name;
     }
 
-    public String getStart() {
-        return start;
+    public boolean isSame_net() {
+        return same_net;
     }
 
-    public void setStart(String start) {
-        this.start = start;
+    public void setSame_net(boolean same_net) {
+        this.same_net = same_net;
     }
 
-    public String getFinish() {
-        return finish;
+    public boolean isLocal() {
+        return local;
     }
 
-    public void setFinish(String finish) {
-        this.finish = finish;
+    public void setLocal(boolean local) {
+        this.local = local;
     }
 
-    public String getDay() {
-        return day;
+    public boolean isRoaming() {
+        return roaming;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setRoaming(boolean roaming) {
+        this.roaming = roaming;
     }
-   
-    
-    
-    
-    
-    
-    
-    
+
 }

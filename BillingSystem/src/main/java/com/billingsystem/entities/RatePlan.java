@@ -5,6 +5,9 @@
  */
 package com.billingsystem.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author THE PR!NCE
@@ -14,16 +17,11 @@ public class RatePlan {
     private int id;
     private String name;
     private float monthlyFees;
-    private ServicePackage SvcPackage;
+    private List<ServicePackage> servicePackages;
 
-    public ServicePackage getSvcPackage() {
-        return SvcPackage;
+    public RatePlan() {
+        servicePackages = new ArrayList<>();
     }
-
-    public void setSvcPackage(ServicePackage SvcPackage) {
-        this.SvcPackage = SvcPackage;
-    }
-    
     
     public int getId() {
         return id;

@@ -4,11 +4,10 @@
     Author     : moham
 --%>
 
+<%@page import="com.billingsystem.daos.ServiceDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.billingsystem.entities.Service"%>
-<%@page import="com.billingsystem.daos.ServiceDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.Vector"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -116,7 +115,7 @@
                             <tbody>
                                 <%
 //                                            ProductDAO productDAO = new ProductDAO();
-                                    ServiceDao sd = new ServiceDao();
+                                    ServiceDAO sd = new ServiceDAO();
                                     ArrayList<Service> allService = sd.getAll();
 //                                            ArrayList<Category> allCategories = new ArrayList<>();
 //                                            allCategories.add(new Category(1, "mobiles"));

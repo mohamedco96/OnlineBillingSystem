@@ -5,10 +5,10 @@
 --%>
 
 <%@page import="com.billingsystem.entities.Service"%>
-<%@page import="com.billingsystem.daos.ServiceDao"%>
+<%@page import="com.billingsystem.daos.ServiceDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.billingsystem.entities.RatePlan"%>
-<%@page import="com.billingsystem.daos.RatePlanDao"%>
+<%@page import="com.billingsystem.daos.RatePlanDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -107,10 +107,10 @@
                         </div>
                         <label>Profile</label>
                         <%
-                            RatePlanDao rpd = new RatePlanDao();
+                            RatePlanDAO rpd = new RatePlanDAO();
                             ArrayList<RatePlan> allRatePlan = rpd.getAll();
                             
-                            ServiceDao sd = new ServiceDao();
+                            ServiceDAO sd = new ServiceDAO();
                             ArrayList<Service> AllRecurringServices = sd.getAllRecurringServices();
                             ArrayList<Service> AllOneTimeFee = sd.getAllOneTimeFee();
                         %>

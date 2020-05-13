@@ -4,13 +4,10 @@
     Author     : moham
 --%>
 
-<%@page import="com.billingsystem.entities.timePackage"%>
-<%@page import="com.billingsystem.daos.timePackageDao"%>
+<%@page import="com.billingsystem.entities.TimePackage"%>
+<%@page import="com.billingsystem.daos.TimePackageDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.billingsystem.entities.Service"%>
-<%@page import="com.billingsystem.daos.ServiceDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.Vector"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -115,8 +112,8 @@
                             </thead>
                             <tbody>
                                 <%
-                                    timePackageDao tpd = new timePackageDao();
-                                    ArrayList<timePackage> alltimePackage = tpd.getAll();
+                                    TimePackageDAO tpd = new TimePackageDAO();
+                                    ArrayList<TimePackage> alltimePackage = tpd.getAll();
                                     //
                                     for (int i = 0; i < alltimePackage.size(); i++) {
                                 %>

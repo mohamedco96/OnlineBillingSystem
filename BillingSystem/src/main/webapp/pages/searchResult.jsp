@@ -3,10 +3,9 @@
     Created on : Apr 30, 2020, 10:53:02 PM
     Author     : moham
 --%>
+<%@page import="com.billingsystem.daos.CustomerDAO"%>
 <%@page import="com.billingsystem.entities.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="com.billingsystem.daos.*"%>
-<%@page import="java.util.Vector"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>

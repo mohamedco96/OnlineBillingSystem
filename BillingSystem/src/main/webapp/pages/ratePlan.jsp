@@ -5,12 +5,9 @@
 --%>
 
 <%@page import="com.billingsystem.entities.RatePlan"%>
-<%@page import="com.billingsystem.daos.RatePlanDao"%>
+<%@page import="com.billingsystem.daos.RatePlanDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.billingsystem.entities.Service"%>
-<%@page import="com.billingsystem.daos.ServiceDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.Vector"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -114,7 +111,7 @@
                             <tbody>
                                 <%
 //                                            ProductDAO productDAO = new ProductDAO();
-                                    RatePlanDao rpd = new RatePlanDao();
+                                    RatePlanDAO rpd = new RatePlanDAO();
                                     ArrayList<RatePlan> allRatePlan = rpd.getAll();
 //                                            ArrayList<Category> allCategories = new ArrayList<>();
 //                                            allCategories.add(new Category(1, "mobiles"));

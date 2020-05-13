@@ -5,13 +5,14 @@
  */
 package com.billingsystem.servlets;
 
-import com.billingsystem.daos.ServiceDao;
-import com.billingsystem.daos.tarrifZoneDao;
+import com.billingsystem.daos.ServiceDAO;
+import com.billingsystem.daos.TimePackageDAO;
 import com.billingsystem.entities.Service;
-import com.billingsystem.entities.tarrifZone;
+import com.billingsystem.entities.TimePackage;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,18 +21,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author moham
  */
-public class addTarrifZone extends HttpServlet {
-
-    tarrifZoneDao tzd = new tarrifZoneDao();
-    tarrifZone tz = new tarrifZone();
+@WebServlet(value = "/addtimePackage")
+public class TimePackageUpdateServlet extends HttpServlet {
+    TimePackageDAO tpd = new TimePackageDAO();
+    TimePackage tp = new TimePackage();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        tz.setName(req.getParameter("tarrifZoneName"));
-        tz.setSame_net(Boolean.parseBoolean(req.getParameter("sameNetwork")));
-        tz.setLocal(Boolean.parseBoolean(req.getParameter("Local")));
-        tz.setRoaming(Boolean.parseBoolean(req.getParameter("Romaing")));
-        tzd.save(tz);
+        tp.setName(req.getParameter("pkg_name"));
+        tp.setStart(req.getParameter("start"));
+        tp.setFinish(req.getParameter("finish"));
+        tp.setDay(req.getParameter("day"));
+        tpd.save(tp);
 
     }
 

@@ -4,14 +4,13 @@
     Author     : moham
 --%>
 <%@page import="com.billingsystem.entities.RatePlan"%>
-<%@page import="com.billingsystem.daos.RatePlanDao"%>
-<%@page import="com.billingsystem.daos.ServiceDao"%>
+<%@page import="com.billingsystem.daos.RatePlanDAO"%>
+<%@page import="com.billingsystem.daos.ServiceDAO"%>
 <%@page import="com.billingsystem.entities.Service"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.billingsystem.entities.Customer"%>
 <%@page import="com.billingsystem.daos.CustomerDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.Vector"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -91,8 +90,8 @@
                 // Database db = new Database();
                 // Vector<Users> listOfUsers = db.retrieveAllCustomers();
                 CustomerDAO cd = new CustomerDAO();
-                ServiceDao sd = new ServiceDao();
-                RatePlanDao rpd = new RatePlanDao();
+                ServiceDAO sd = new ServiceDAO();
+                RatePlanDAO rpd = new RatePlanDAO();
                 ArrayList<Customer> listOfCustomer = cd.getAll();
                 ArrayList<Service> listOfService = sd.getAll();
                 ArrayList<RatePlan> listOfRatePlan = rpd.getAll();

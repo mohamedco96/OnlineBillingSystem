@@ -5,13 +5,11 @@
  */
 package com.billingsystem.servlets;
 
-import com.billingsystem.daos.ServiceDao;
-import com.billingsystem.daos.timePackageDao;
-import com.billingsystem.entities.Service;
-import com.billingsystem.entities.timePackage;
+import com.billingsystem.daos.TariffZoneDAO;
+import com.billingsystem.entities.TariffZone;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,17 +18,22 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author moham
  */
-public class addtimePackage extends HttpServlet {
-    timePackageDao tpd = new timePackageDao();
-    timePackage tp = new timePackage();
+@WebServlet(value = "/deleteTarrifZone")
+public class TariffZoneDeleteServlet extends HttpServlet {
+
+   TariffZoneDAO tzd = new TariffZoneDAO();
+    TariffZone tz = new TariffZone();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        tp.setName(req.getParameter("pkg_name"));
-        tp.setStart(req.getParameter("start"));
-        tp.setFinish(req.getParameter("finish"));
-        tp.setDay(req.getParameter("day"));
-        tpd.save(tp);
+
+        try {
+            tz.setId(Integer.parseInt(req.getParameter("tarrifZoneId")));
+            tzd.deleteTarrifZone(tz);
+            resp.setContentType("success");
+        } catch (Exception e) {
+            e.getMessage();
+        }
 
     }
 

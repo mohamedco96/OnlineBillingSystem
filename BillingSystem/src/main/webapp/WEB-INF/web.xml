@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <servlet>
+<!--    <servlet>
         <servlet-name>addCustomer</servlet-name>
         <servlet-class>com.billingsystem.servlets.addCustomer</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet>-->
+<!--    <servlet>
         <servlet-name>addService</servlet-name>
         <servlet-class>com.billingsystem.servlets.addService</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet>-->
+<!--    <servlet>
         <servlet-name>deleteService</servlet-name>
         <servlet-class>com.billingsystem.servlets.deleteService</servlet-class>
     </servlet>
@@ -39,47 +39,47 @@
     <servlet>
         <servlet-name>addServicePackage</servlet-name>
         <servlet-class>com.billingsystem.servlets.addServicePackage</servlet-class>
-    </servlet>
-    <servlet-mapping>
+    </servlet>-->
+<!--    <servlet-mapping>
         <servlet-name>addCustomer</servlet-name>
         <url-pattern>/addCustomer</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping>-->
+<!--    <servlet-mapping>
         <servlet-name>addService</servlet-name>
         <url-pattern>/addService</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping>-->
+<!--    <servlet-mapping>
         <servlet-name>deleteService</servlet-name>
         <url-pattern>/deleteService</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping>-->
+<!--    <servlet-mapping>
         <servlet-name>addtimePackage</servlet-name>
         <url-pattern>/addtimePackage</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping>-->
+<!--    <servlet-mapping>
         <servlet-name>deleteTimePackage</servlet-name>
         <url-pattern>/deleteTimePackage</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping>-->
+<!--    <servlet-mapping>
         <servlet-name>addTarrifZone</servlet-name>
         <url-pattern>/addTarrifZone</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping>-->
+<!--    <servlet-mapping>
         <servlet-name>deleteTarrifZone</servlet-name>
         <url-pattern>/deleteTarrifZone</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping>-->
+<!--    <servlet-mapping>
         <servlet-name>AddRatePlan</servlet-name>
         <url-pattern>/AddRatePlan</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping>-->
+<!--    <servlet-mapping>
         <servlet-name>DeleteRatePlan</servlet-name>
         <url-pattern>/DeleteRatePlan</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping>-->
+<!--    <servlet-mapping>
         <servlet-name>addServicePackage</servlet-name>
         <url-pattern>/addServicePackage</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
     <session-config>
         <session-timeout>
             30

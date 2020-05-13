@@ -4,13 +4,10 @@
     Author     : moham
 --%>
 
-<%@page import="com.billingsystem.daos.tarrifZoneDao"%>
-<%@page import="com.billingsystem.entities.tarrifZone"%>
+<%@page import="com.billingsystem.daos.TariffZoneDAO"%>
+<%@page import="com.billingsystem.entities.TariffZone"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.billingsystem.entities.Service"%>
-<%@page import="com.billingsystem.daos.ServiceDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.Vector"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -116,8 +113,8 @@
                             <tbody>
                                 <%
 //                                            ProductDAO productDAO = new ProductDAO();
-                                    tarrifZoneDao tfd = new tarrifZoneDao();
-                                    ArrayList<tarrifZone> alltarrifZone = tfd.getAll();
+                                    TariffZoneDAO tfd = new TariffZoneDAO();
+                                    ArrayList<TariffZone> alltarrifZone = tfd.getAll();
 //                                            ArrayList<Category> allCategories = new ArrayList<>();
 //                                            allCategories.add(new Category(1, "mobiles"));
 //                                            allCategories.add(new Category(2, "laptops"));
