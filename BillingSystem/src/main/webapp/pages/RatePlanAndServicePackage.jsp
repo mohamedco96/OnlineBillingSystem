@@ -4,6 +4,10 @@
     Author     : moham
 --%>
 
+<%@page import="com.billingsystem.entities.TariffZone"%>
+<%@page import="com.billingsystem.daos.TariffZoneDAO"%>
+<%@page import="com.billingsystem.entities.TimePackage"%>
+<%@page import="com.billingsystem.daos.TimePackageDAO"%>
 <%@page import="com.billingsystem.daos.ServiceDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.billingsystem.entities.Service"%>
@@ -41,7 +45,7 @@
                     <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
                 </a>
                 <div class="list-group list-group-flush">
-                    <a href="../dashboard.jsp" class="list-group-item active waves-effect">
+                    <a href="../index.jsp" class="list-group-item active waves-effect">
                         <i class="fas fa-chart-pie mr-3"></i>Dashboard
                     </a>
                     <a href="service.jsp" class="list-group-item list-group-item-action waves-effect">
@@ -52,8 +56,6 @@
                         <i class="fas fa-coins mr-3"></i>Tarrif Zone</a>
                     <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-box mr-3"></i>Rate plan</a>
-                    <a href="ServicePackage.jsp" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-chart-pie mr-3"></i>Service Package</a>
                     <a href="addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Customers</a>
                     <a href="viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
@@ -72,9 +74,9 @@
                     <!--Card content-->
                     <div class="card-body d-sm-flex justify-content-between">
                         <h4 class="mb-2 mb-sm-0 pt-1">
-                            <a href="../dashboard.jsp" target="_blank">Dashboard</a>
+                            <a href="../index.jsp" target="_blank">Dashboard</a>
                             <span>/</span>
-                            <span>Service Package</span>
+                            <span>Rate Plan & Service Package</span>
                         </h4>
                         <form class="d-flex justify-content-center" action="searchResult.jsp" method="POST">
                             <!-- Default input -->
@@ -88,69 +90,86 @@
                 <!-- Heading -->
             </div>
 
-            <!--Card-->
-            <div class="card">
-                <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Service Package</h3>
 
-                <!--Card content-->
-                <div class="card-body">
+            <div class="container" style="margin-top: 50px;">
 
-                    <div id="table" class="table-editable">
-                        <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
-                                    class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
-                        <table class="table table-bordered table-responsive-md table-striped text-center">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">#</th>
-                                    <th class="text-center">Rate Plan</th>
-                                    <th class="text-center">Service</th>
-                                    <th class="text-center">Time Package</th>
-                                    <th class="text-center">Tarrif Zone</th>
-                                    <th class="text-center">Free Units</th>
-                                    <th class="text-center">Rate</th>
-                                    <th class="text-center">Submit</th>
-                                    <th class="text-center">Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <%
-//                                            ProductDAO productDAO = new ProductDAO();
-                                    ServiceDAO sd = new ServiceDAO();
-                                    ArrayList<Service> allService = sd.getAll();
-//                                            ArrayList<Category> allCategories = new ArrayList<>();
-//                                            allCategories.add(new Category(1, "mobiles"));
-//                                            allCategories.add(new Category(2, "laptops"));
-//
-                                    for (int i = 0; i < allService.size(); i++) {
-                                %>
-                                <tr id="<%=allService.get(i).getId()%>">
-                                    <td class="pt-3-half"><%=i + 1%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getName()%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).isRated()%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getType()%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getType()%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getType()%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getType()%></td>
-                                    <td>
-                                        <span class="table-submit"><button type="button"
-                                                                           class="btn btn-primary btn-rounded btn-sm my-0">Submit</button></span>
-                                    </td>
-                                    <td>
-                                        <span class="table-remove"><button type="button"
-                                                                           class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                    </td>
-                                </tr>
-                                <%}%>
+                <form class="needs-validation" action="../add_RP_And_SP" method="POST" novalidate>
 
-                            </tbody>
-                        </table>
-                        <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
-                                    class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+
+
+                    <div class="form-row">
+                        <input type="text" class="form-control mb-4" id="validationCustom01" placeholder="Rate Plan Name" name="rpName" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <input type="text" class="form-control mb-4" id="validationCustom02" placeholder="Monthly Fees" name="MFess" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+
+                        <%
+                            ServiceDAO sd = new ServiceDAO();
+                            TimePackageDAO tpd = new TimePackageDAO();
+                            TariffZoneDAO tzd = new TariffZoneDAO();
+                            ArrayList<Service> AllService = sd.getAllNormal();
+                            ArrayList<TimePackage> AllTimePackage = tpd.getAll();
+                            ArrayList<TariffZone> AllTariffZone = tzd.getAll();
+                        %>
+
+                       
+                        <h3>Services</h3>
+                        <%
+                            for (int k = 0; k < AllService.size(); k++) {
+                        %>
+                        <div class="row">
+                                                            <input type="hidden" value="<%=AllService.get(k).getId()%>" name="<%=AllService.get(k).getName() + "Checked"%>">
+
+                            <div class="col">
+                                <label id="<%=AllService.get(k).getId()%>"><%=AllService.get(k).getName()%></label>
+                            </div>
+                            <div class="col">
+
+                                <select class="browser-default custom-select mb-4" name="<%=AllService.get(k).getName() + "TimePack"%>">
+                                    <option value="" disabled="" selected="">select Time Package from menu</option>
+                                    <%
+                                        for (int i = 0; i < AllTimePackage.size(); i++) {
+                                    %>
+                                    <option value="<%=AllTimePackage.get(i).getId()%>"><%=AllTimePackage.get(i).getName()%></option>
+                                    <%}%>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select class="browser-default custom-select mb-4" name="<%=AllService.get(k).getName() + "Tarrif"%>">
+                                    <option value="" disabled="" selected="">select Tariff Zone from menu</option>
+                                    <%
+                                        for (int i = 0; i < AllTariffZone.size(); i++) {
+                                    %>
+                                    <option value="<%=AllTariffZone.get(i).getId()%>"><%=AllTariffZone.get(i).getName()%></option>
+                                    <%}%>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control mb-4" id="validationCustom02" placeholder="Free Units" name="<%=AllService.get(k).getName() + "FreeUnit"%>" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <input type="text" class="form-control mb-4" id="validationCustom02" placeholder="Rate" name="<%=AllService.get(k).getName() + "Rate"%>" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <%}%>
                     </div>
 
-                </div>
+                    <button class="btn btn-primary btn-sm" type="submit">Submit</button>
+                </form>
             </div>
-
 
         </main>
         <!--Main layout-->

@@ -4,6 +4,8 @@
     Author     : moham
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="com.billingsystem.entities.ServicePackage"%>
 <%@page import="com.billingsystem.entities.RatePlan"%>
 <%@page import="com.billingsystem.daos.RatePlanDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -41,7 +43,7 @@
                     <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
                 </a>
                 <div class="list-group list-group-flush">
-                    <a href="../dashboard.jsp" class="list-group-item active waves-effect">
+                    <a href="../index.jsp" class="list-group-item active waves-effect">
                         <i class="fas fa-chart-pie mr-3"></i>Dashboard
                     </a>
                     <a href="service.jsp" class="list-group-item list-group-item-action waves-effect">
@@ -52,8 +54,6 @@
                         <i class="fas fa-coins mr-3"></i>Tarrif Zone</a>
                     <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-box mr-3"></i>Rate plan</a>
-                    <a href="ServicePackage.jsp" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-chart-pie mr-3"></i>Service Package</a>
                     <a href="addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Customers</a>
                     <a href="viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
@@ -72,7 +72,7 @@
                     <!--Card content-->
                     <div class="card-body d-sm-flex justify-content-between">
                         <h4 class="mb-2 mb-sm-0 pt-1">
-                            <a href="../dashboard.jsp" target="_blank">Dashboard</a>
+                            <a href="../index.jsp" target="_blank">Dashboard</a>
                             <span>/</span>
                             <span>Rate Plan</span>
                         </h4>
@@ -88,59 +88,71 @@
                 <!-- Heading -->
             </div>
 
-            <!--Card-->
-            <div class="card">
-                <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Rate Plan</h3>
+            <%
+                RatePlanDAO rpd = new RatePlanDAO();
+                ArrayList<RatePlan> allRatePlan = rpd.getAll();
+                
+                
+//                ArrayList<ServicePackage> allServicePackage = rpd.getAllServicePackage();
+            %>
+            
 
-                <!--Card content-->
-                <div class="card-body">
-
-                    <div id="table" class="table-editable">
-                        <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
-                                    class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
-                        <table class="table table-bordered table-responsive-md table-striped text-center">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">#</th>
-                                    <th class="text-center">Rate Plan Name</th>
-                                    <th class="text-center">Monthly Fees</th>
-                                    <th class="text-center">Submit</th>
-                                    <th class="text-center">Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <%
-//                                            ProductDAO productDAO = new ProductDAO();
-                                    RatePlanDAO rpd = new RatePlanDAO();
-                                    ArrayList<RatePlan> allRatePlan = rpd.getAll();
-//                                            ArrayList<Category> allCategories = new ArrayList<>();
-//                                            allCategories.add(new Category(1, "mobiles"));
-//                                            allCategories.add(new Category(2, "laptops"));
-//
-                                    for (int i = 0; i < allRatePlan.size(); i++) {
-                                %>
-                                <tr id="<%=allRatePlan.get(i).getId()%>">
-                                    <td class="pt-3-half"><%=i + 1%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=allRatePlan.get(i).getName()%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=allRatePlan.get(i).getMonthlyFees()%></td>
-                                    <td>
-                                        <span class="table-submit"><button type="button"
-                                                                           class="btn btn-primary btn-rounded btn-sm my-0">Submit</button></span>
-                                    </td>
-                                    <td>
-                                        <span class="table-remove"><button type="button"
-                                                                           class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                    </td>
-                                </tr>
-                                <%}%>
-
-                            </tbody>
-                        </table>
-                        <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
-                                    class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+            <div class="container my-5">
+                <!--Section: Content-->
+                <section class="text-center dark-grey-text">
+                    <!-- Section heading -->
+                    <h3 class="font-weight-bold pb-2 mb-4">Our pricing plans</h3>
+                    
+                    <a class="btn btn-primary" href="./RatePlanAndServicePackage.jsp">Add Rate Plan</a>
+                    <!-- Grid row -->
+                    <div class="row">
+                        <% for (int i = 0; i < allRatePlan.size(); i++) { %>
+                        <div class="col-lg-4 col-md-12 mb-4">
+                            <!-- Pricing card -->
+                            <div class="card pricing-card">
+                                <!-- Price -->
+                                <div class="price header white-text blue rounded-top">
+                                    <h2 class="number"><%=allRatePlan.get(i).getMonthlyFees()%></h2>
+                                    <div class="version">
+                                        <h5 class="mb-0"><%=allRatePlan.get(i).getName()%></h5>
+                                    </div>
+                                </div>
+                                <!-- Features -->
+                                <div class="card-body striped mb-1">
+                                    <ul>
+                                        <% 
+                                            ServicePackage sp = new ServicePackage();
+                                            RatePlanDAO dsj=new RatePlanDAO();
+                                           
+                                            List<ServicePackage> allServicePackage = allRatePlan.get(i).getServicePackages();
+                                            for (int j = 0; j < allServicePackage.size(); j++) { 
+                                            
+                                        %>
+                                            
+                                        <li>
+                                            <p class="mt-2"><i class="fas fa-check green-text pr-2"></i><%= allServicePackage.get(j).getService().getName()%></p>
+                                        </li>
+                                        <li>
+                                            <p class="mt-2"><i class="fas fa-check green-text pr-2"></i>Free Units:<%= allServicePackage.get(j).getFree_units()%></p>
+                                        </li>
+                                        <li>
+                                            <p class="mt-2"><i class="fas fa-check green-text pr-2"></i>Rate:<%= allServicePackage.get(j).getRate()%></p>
+                                        </li>
+                                         <%}%>
+                                    </ul>
+                                     <a class="btn btn-primary">Edit</a>
+                                     <a class="btn btn-primary">Delete</a>
+                                </div>
+                                <!-- Features -->
+                               
+                            </div>
+                            <!-- Pricing card -->
+                        </div>
+                        <%}%>
                     </div>
-
-                </div>
+                    <!-- Grid row -->
+                </section>
+                <!--Section: Content-->
             </div>
 
 

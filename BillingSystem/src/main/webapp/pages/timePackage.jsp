@@ -41,7 +41,7 @@
                     <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
                 </a>
                 <div class="list-group list-group-flush">
-                    <a href="../dashboard.jsp" class="list-group-item active waves-effect">
+                    <a href="../index.jsp" class="list-group-item active waves-effect">
                         <i class="fas fa-chart-pie mr-3"></i>Dashboard
                     </a>
                     <a href="service.jsp" class="list-group-item list-group-item-action waves-effect">
@@ -52,8 +52,6 @@
                         <i class="fas fa-coins mr-3"></i>Tarrif Zone</a>
                     <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-box mr-3"></i>Rate plan</a>
-                    <a href="ServicePackage.jsp" class="list-group-item list-group-item-action waves-effect">
-                        <i class="fas fa-chart-pie mr-3"></i>Service Package</a>
                     <a href="addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Customers</a>
                     <a href="viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
@@ -72,7 +70,7 @@
                     <!--Card content-->
                     <div class="card-body d-sm-flex justify-content-between">
                         <h4 class="mb-2 mb-sm-0 pt-1">
-                            <a href="../dashboard.jsp" target="_blank">Dashboard</a>
+                            <a href="../index.jsp" target="_blank">Dashboard</a>
                             <span>/</span>
                             <span>Add Time Package</span>
                         </h4>

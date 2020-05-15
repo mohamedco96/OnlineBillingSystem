@@ -22,6 +22,14 @@ public class RatePlan {
     public RatePlan() {
         servicePackages = new ArrayList<>();
     }
+
+    public List<ServicePackage> getServicePackages() {
+        return servicePackages;
+    }
+
+    public void setServicePackages(List<ServicePackage> servicePackages) {
+        this.servicePackages = servicePackages;
+    }
     
     public int getId() {
         return id;
