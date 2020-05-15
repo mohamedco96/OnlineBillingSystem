@@ -25,7 +25,21 @@ public class ServiceDAO implements DAO<Service> {
 
     @Override
     public Service get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String serviceByIdQuery = "select * from service where id=" + id;
+        Service s = new Service();
+        try (Statement stmt1 = conn.createStatement()) {
+            ResultSet rs1 = stmt1.executeQuery(serviceByIdQuery);
+
+            if (rs1.next()) {
+                s.setId(rs1.getInt("id"));
+                s.setName(rs1.getString("name"));
+                s.setRated(rs1.getBoolean("is_rated"));
+                s.setType(rs1.getString("type"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("##### service By Id faild: \n" + ex.getMessage());
+        }
+        return s;
     }
 
     @Override
@@ -48,6 +62,29 @@ public class ServiceDAO implements DAO<Service> {
             }
         } catch (SQLException ex) {
             System.out.println("##### Service get all faild: \n" + ex.getMessage());
+        }
+        return allService;
+    }
+    
+    public ArrayList<Service> getAllNormal() {
+        ArrayList<Service> allService = new ArrayList<>();
+        String customerJoinRatePlanQuery = "select * from service where type='normal'";
+
+        try (
+                Statement stmt1 = conn.createStatement();) {
+            ResultSet rs1 = stmt1.executeQuery(customerJoinRatePlanQuery);
+            while (rs1.next()) {
+                Service s = new Service();
+                s.setId(rs1.getInt("id"));
+                s.setName(rs1.getString("name"));
+                s.setRated(rs1.getBoolean("is_rated"));
+                s.setType(rs1.getString("type"));
+
+                allService.add(s);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("##### Normal get all faild: \n" + ex.getMessage());
         }
         return allService;
     }
@@ -116,7 +153,7 @@ public class ServiceDAO implements DAO<Service> {
         }
         return operationSuccess;
     }
-    
+
     @Override
     public int saveAndReturnId(Service s) {
         int newRecordId;
@@ -150,7 +187,7 @@ public class ServiceDAO implements DAO<Service> {
             preparedStatment.setBoolean(2, s.isRated());
             preparedStatment.setString(3, s.getType());
             preparedStatment.setInt(4, s.getId());
-            
+
             preparedStatment.executeUpdate();
 
         } catch (SQLException ex) {

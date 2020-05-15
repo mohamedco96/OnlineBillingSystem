@@ -53,28 +53,26 @@ public class TariffZoneDAO implements DAO<TariffZone> {
     }
 
     @Override
-    public boolean save(TariffZone t) {
+    public boolean update(TariffZone t) {
         boolean operationSuccess = true;
-        String sqlCommand = "insert into tarrif_zone (name,same_net,local,roaming) values (?,?,?,?)";
+        String sqlCommand = "update tarrif_zone set name = ?, same_net = ?, local = ? , roaming = ?"
+                + " where id = ?";
+                
 
         try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {
             preparedStatment.setString(1, t.getName());
             preparedStatment.setBoolean(2, t.isSame_net());
             preparedStatment.setBoolean(3, t.isLocal());
             preparedStatment.setBoolean(4, t.isRoaming());
+            preparedStatment.setInt(5, t.getId());
 
             preparedStatment.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("##### tarrifZone insert faild: \n" + ex.getMessage());
+            System.out.println("##### tarrif_zone insert faild: \n" + ex.getMessage());
             operationSuccess = false;
         }
         return operationSuccess;
-    }
-
-    @Override
-    public boolean update(TariffZone t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public boolean deleteTarrifZone(TariffZone t) {
@@ -99,6 +97,29 @@ public class TariffZoneDAO implements DAO<TariffZone> {
 
     @Override
     public int saveAndReturnId(TariffZone t) {
+        int newRecordId;
+        String sqlCommand = "insert into tarrif_zone (name,same_net,local,roaming) values (?,?,?,?)";
+
+        try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {
+            preparedStatment.setString(1, t.getName());
+            preparedStatment.setBoolean(2, t.isSame_net());
+            preparedStatment.setBoolean(3, t.isLocal());
+            preparedStatment.setBoolean(4, t.isRoaming());
+
+            preparedStatment.executeUpdate();
+            ResultSet generatedKeys = preparedStatment.getGeneratedKeys();
+            generatedKeys.next();
+            newRecordId = generatedKeys.getInt(1);
+
+        } catch (SQLException ex) {
+            System.out.println("##### tarrifZone insert faild: \n" + ex.getMessage());
+            newRecordId = 0;
+        }
+        return newRecordId;
+    }
+
+    @Override
+    public boolean save(TariffZone t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

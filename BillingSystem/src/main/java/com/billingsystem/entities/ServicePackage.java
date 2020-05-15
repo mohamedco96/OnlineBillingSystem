@@ -12,12 +12,20 @@ package com.billingsystem.entities;
 public class ServicePackage {
 
     private int id;
-    private RatePlan RatePlan;
+    private int RatePlanId;
     private Service service;
     private TimePackage timePackage;
     private TariffZone tarrifZone;
     private int free_units;
     private float rate;
+
+    public int getRatePlanId() {
+        return RatePlanId;
+    }
+
+    public void setRatePlanId(int RatePlanId) {
+        this.RatePlanId = RatePlanId;
+    }
 
     public int getId() {
         return id;
@@ -25,14 +33,6 @@ public class ServicePackage {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public RatePlan getRatePlan() {
-        return RatePlan;
-    }
-
-    public void setRatePlan(RatePlan RatePlan) {
-        this.RatePlan = RatePlan;
     }
 
     public Service getService() {

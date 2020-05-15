@@ -29,11 +29,30 @@ public class TariffZoneUpdateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        tz.setId(Integer.parseInt(req.getParameter("tarrifZoneId")));
         tz.setName(req.getParameter("tarrifZoneName"));
         tz.setSame_net(Boolean.parseBoolean(req.getParameter("sameNetwork")));
         tz.setLocal(Boolean.parseBoolean(req.getParameter("Local")));
         tz.setRoaming(Boolean.parseBoolean(req.getParameter("Romaing")));
-        tzd.save(tz);
+//        tzd.saveAndReturnId(tz);
+        
+        int newId = 0;
+        boolean updateSuccess = false;
+        
+        if(tz.getId() == 0)
+            newId = tzd.saveAndReturnId(tz);
+        else{
+            updateSuccess = tzd.update(tz);}
+        
+        resp.setContentType("text/plain");
+        if(newId != 0)
+            resp.getWriter().print(Integer.toString(newId));
+        else if(updateSuccess)
+            resp.getWriter().print(Integer.toString(tz.getId()));
+//        else
+//            resp.getWriter().print("failed");
+    
+
 
     }
 

@@ -30,7 +30,7 @@ public class TariffZoneDeleteServlet extends HttpServlet {
         try {
             tz.setId(Integer.parseInt(req.getParameter("tarrifZoneId")));
             tzd.deleteTarrifZone(tz);
-            resp.setContentType("success");
+            resp.getWriter().print("success");
         } catch (Exception e) {
             e.getMessage();
         }

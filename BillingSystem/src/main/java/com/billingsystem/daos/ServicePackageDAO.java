@@ -84,8 +84,8 @@ public class ServicePackageDAO implements DAO<ServicePackage> {
             while (rs1.next()) {
                 ServicePackage sp = new ServicePackage();
                 sp.setId(rs1.getInt("id"));
-                sp.getRatePlan().setId(rs1.getInt("rate_plan_id"));
-                sp.getRatePlan().setName(rs1.getString("rpname"));
+//                sp.getRatePlan().setId(rs1.getInt("rate_plan_id"));
+//                sp.getRatePlan().setName(rs1.getString("rpname"));
                 sp.getService().setId(rs1.getInt("rate_plan_id"));
                 sp.getService().setName(rs1.getString("rpname"));
                 sp.getTimePackage().setId(rs1.getInt("rate_plan_id"));

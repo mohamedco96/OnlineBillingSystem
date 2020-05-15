@@ -176,7 +176,8 @@ public class CustomerDAO implements DAO<Customer>{
         } catch (SQLException ex) {
             System.out.println("##### Customer get by id faild: \n" + ex.getMessage());
         }
-        return customer;    }
+        return customer;    
+    }
     
     @Override
     public boolean update(Customer t) {

@@ -37,8 +37,9 @@ public class ServiceUpdateServlet extends HttpServlet {
         
         if(s.getId() == 0)
             newId = sd.saveAndReturnId(s);
-        else
-            updateSuccess = sd.update(s);
+        else{
+            s.setType(req.getParameter("typeUpdate"));
+            updateSuccess = sd.update(s);}
         
         resp.setContentType("text/plain");
         if(newId != 0)

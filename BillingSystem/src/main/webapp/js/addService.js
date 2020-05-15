@@ -83,12 +83,14 @@ var currentRow = $(this).closest('tr');
         var ServiceName = currentRow.find('td:eq(1)').text();
         var rating = currentRow.find('td:eq(2)').text();
         var type = currentRow.find('td:eq(3)').children(0).children("option:selected").val();
+        var typeUpdate = currentRow.find('td:eq(3)').text();
         //POST request
         $.post('../addService', {
             service_id: trid,
             service_name: ServiceName,
             rate: rating,
-            type: type
+            type: type,
+            typeUpdate:typeUpdate
         },
             function (response) {
                 if (response !== "failed") {
@@ -109,8 +111,7 @@ var currentRow = $(this).closest('tr');
                     }, 3000);
                 } else
                     alert("failed");
-            }
-        );
+            });
 });
 // A few jQuery helpers for exporting only
 jQuery.fn.pop = [].pop;
