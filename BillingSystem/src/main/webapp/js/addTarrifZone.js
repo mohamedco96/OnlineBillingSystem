@@ -13,7 +13,6 @@ const newTr = `
   <td class="pt-3-half" contenteditable="true"></td>
   <td class="pt-3-half" contenteditable="true"></td>
   <td class="pt-3-half" contenteditable="true"></td>
-  <td class="pt-3-half" contenteditable="true"></td>
 
 
   <td>

@@ -106,7 +106,6 @@
                                     <th class="text-center">Tarrif Zone Name</th>
                                     <th class="text-center">Same Network</th>
                                     <th class="text-center">Local</th>
-                                    <th class="text-center">Roaming</th>
                                     <th class="text-center">Submit</th>
                                     <th class="text-center">Remove</th>
                                 </tr>
@@ -127,7 +126,6 @@
                                     <td class="pt-3-half" contenteditable="true"><%=alltarrifZone.get(i).getName()%></td>
                                     <td class="pt-3-half" contenteditable="true"><%=alltarrifZone.get(i).isSame_net()%></td>
                                     <td class="pt-3-half" contenteditable="true"><%=alltarrifZone.get(i).isLocal()%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=alltarrifZone.get(i).isRoaming()%></td>
                                     <td>
                                         <span class="table-submit"><button type="button"
                                                                            class="btn btn-primary btn-rounded btn-sm my-0">Submit</button></span>

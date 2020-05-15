@@ -31,7 +31,7 @@ public class CustomerDAO implements DAO<Customer>{
                 + " rp.name AS rpname, monthly_fees"
                 + " FROM customer cust, rate_plan rp"
                 + " WHERE cust.rate_plan_id = rp.id";
-//        String customerJoinServiceQuery = "SELECT cs.*, s.* FROM cust_svc cs, service s"
+//        String customerJoinServiceQuery = "SELECT cs.*, s.* FROM cust_svc_addons cs, service s"
 //                + "WHERE s.id = cs.service_id";
         try (
                 Statement stmt1 = conn.createStatement();
@@ -119,7 +119,7 @@ public class CustomerDAO implements DAO<Customer>{
                 customer.getRatePlan().setName(rs1.getString("rpname"));
                 customer.getRatePlan().setMonthlyFees(rs1.getFloat("monthly_fees"));
                 
-                String customerJoinServiceQuery = "SELECT cs.*, s.* FROM cust_svc cs, service s "
+                String customerJoinServiceQuery = "SELECT cs.*, s.* FROM cust_svc_addons cs, service s "
                 + " WHERE s.id = cs.service_id AND cust_id = " + customer.getId();
                 ResultSet rs2 = stmt2.executeQuery(customerJoinServiceQuery);
                 while(rs2.next()){
@@ -161,7 +161,7 @@ public class CustomerDAO implements DAO<Customer>{
                 customer.getRatePlan().setName(rs1.getString("rpname"));
                 customer.getRatePlan().setMonthlyFees(rs1.getFloat("monthly_fees"));
                 
-                String customerJoinServiceQuery = "SELECT cs.*, s.* FROM cust_svc cs, service s"
+                String customerJoinServiceQuery = "SELECT cs.*, s.* FROM cust_svc_addons cs, service s"
                 + "WHERE s.id = cs.service_id AND cust_id = " + id;
                 ResultSet rs2 = stmt2.executeQuery(customerJoinServiceQuery);
                 while(rs2.next()){

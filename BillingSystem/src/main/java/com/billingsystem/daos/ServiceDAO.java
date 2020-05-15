@@ -33,7 +33,7 @@ public class ServiceDAO implements DAO<Service> {
             if (rs1.next()) {
                 s.setId(rs1.getInt("id"));
                 s.setName(rs1.getString("name"));
-                s.setRated(rs1.getBoolean("is_rated"));
+                s.setRated(rs1.getBoolean("rating"));
                 s.setType(rs1.getString("type"));
             }
         } catch (SQLException ex) {
@@ -54,7 +54,7 @@ public class ServiceDAO implements DAO<Service> {
                 Service s = new Service();
                 s.setId(rs1.getInt("id"));
                 s.setName(rs1.getString("name"));
-                s.setRated(rs1.getBoolean("is_rated"));
+                s.setRated(rs1.getBoolean("rating"));
                 s.setType(rs1.getString("type"));
 
                 allService.add(s);
@@ -68,7 +68,7 @@ public class ServiceDAO implements DAO<Service> {
     
     public ArrayList<Service> getAllNormal() {
         ArrayList<Service> allService = new ArrayList<>();
-        String customerJoinRatePlanQuery = "select * from service where type='normal'";
+        String customerJoinRatePlanQuery = "select * from service where type='network'";
 
         try (
                 Statement stmt1 = conn.createStatement();) {
@@ -77,7 +77,7 @@ public class ServiceDAO implements DAO<Service> {
                 Service s = new Service();
                 s.setId(rs1.getInt("id"));
                 s.setName(rs1.getString("name"));
-                s.setRated(rs1.getBoolean("is_rated"));
+                s.setRated(rs1.getBoolean("rating"));
                 s.setType(rs1.getString("type"));
 
                 allService.add(s);
@@ -100,7 +100,7 @@ public class ServiceDAO implements DAO<Service> {
                 Service s = new Service();
                 s.setId(rs1.getInt("id"));
                 s.setName(rs1.getString("name"));
-                s.setRated(rs1.getBoolean("is_rated"));
+                s.setRated(rs1.getBoolean("rating"));
                 s.setType(rs1.getString("type"));
 
                 allService.add(s);
@@ -123,7 +123,7 @@ public class ServiceDAO implements DAO<Service> {
                 Service s = new Service();
                 s.setId(rs1.getInt("id"));
                 s.setName(rs1.getString("name"));
-                s.setRated(rs1.getBoolean("is_rated"));
+                s.setRated(rs1.getBoolean("rating"));
                 s.setType(rs1.getString("type"));
 
                 allService.add(s);
@@ -138,7 +138,7 @@ public class ServiceDAO implements DAO<Service> {
     @Override
     public boolean save(Service s) {
         boolean operationSuccess = true;
-        String sqlCommand = "insert into service(name,is_rated,type) values (?,?,?)";
+        String sqlCommand = "insert into service(name,rating,type) values (?,?,?)";
 
         try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {
             preparedStatment.setString(1, s.getName());
@@ -157,7 +157,7 @@ public class ServiceDAO implements DAO<Service> {
     @Override
     public int saveAndReturnId(Service s) {
         int newRecordId;
-        String sqlCommand = "insert into service(name,is_rated,type) values (?,?,?)";
+        String sqlCommand = "insert into service(name,rating,type) values (?,?,?)";
 
         try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatment.setString(1, s.getName());
@@ -179,7 +179,7 @@ public class ServiceDAO implements DAO<Service> {
     @Override
     public boolean update(Service s) {
         boolean operationSuccess = true;
-        String sqlCommand = "update service set name = ?, is_rated = ?, type = ?"
+        String sqlCommand = "update service set name = ?, rating = ?, type = ?"
                 + " where id = ?";
 
         try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {

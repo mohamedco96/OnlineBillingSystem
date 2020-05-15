@@ -38,9 +38,9 @@ public class RatePlanAndServicePackageUpdateServlet extends HttpServlet {
      @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
-//        rp.setName(req.getParameter("rpName"));
-//        rp.setMonthlyFees(Float.parseFloat(req.getParameter("MFess")));
-//         resp.getWriter().println( req.getParameterMap());
+        rp.setName(req.getParameter("rpName"));
+        rp.setMonthlyFees(Float.parseFloat(req.getParameter("MFess")));
+         resp.getWriter().println( req.getParameterMap());
 //       
 //         voiceServicePackage.getService().setId(Integer.parseInt(req.getParameter("VoiceChecked")));
 //         voiceServicePackage.getTimePackage().setId(Integer.parseInt(req.getParameter("VoiceTimePack")));

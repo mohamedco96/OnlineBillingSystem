@@ -41,7 +41,7 @@ public class TariffZoneDAO implements DAO<TariffZone> {
                 tz.setName(rs1.getString("name"));
                 tz.setSame_net(rs1.getBoolean("same_net"));
                 tz.setLocal(rs1.getBoolean("local"));
-                tz.setRoaming(rs1.getBoolean("roaming"));
+//                tz.setRoaming(rs1.getBoolean("roaming"));
 
                 alltarrifZone.add(tz);
 
@@ -55,7 +55,7 @@ public class TariffZoneDAO implements DAO<TariffZone> {
     @Override
     public boolean update(TariffZone t) {
         boolean operationSuccess = true;
-        String sqlCommand = "update tarrif_zone set name = ?, same_net = ?, local = ? , roaming = ?"
+        String sqlCommand = "update tarrif_zone set name = ?, same_net = ?, local = ?"
                 + " where id = ?";
                 
 
@@ -63,8 +63,7 @@ public class TariffZoneDAO implements DAO<TariffZone> {
             preparedStatment.setString(1, t.getName());
             preparedStatment.setBoolean(2, t.isSame_net());
             preparedStatment.setBoolean(3, t.isLocal());
-            preparedStatment.setBoolean(4, t.isRoaming());
-            preparedStatment.setInt(5, t.getId());
+            preparedStatment.setInt(4, t.getId());
 
             preparedStatment.executeUpdate();
 
@@ -98,13 +97,12 @@ public class TariffZoneDAO implements DAO<TariffZone> {
     @Override
     public int saveAndReturnId(TariffZone t) {
         int newRecordId;
-        String sqlCommand = "insert into tarrif_zone (name,same_net,local,roaming) values (?,?,?,?)";
+        String sqlCommand = "insert into tarrif_zone (name,same_net,local) values (?,?,?)";
 
         try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {
             preparedStatment.setString(1, t.getName());
             preparedStatment.setBoolean(2, t.isSame_net());
             preparedStatment.setBoolean(3, t.isLocal());
-            preparedStatment.setBoolean(4, t.isRoaming());
 
             preparedStatment.executeUpdate();
             ResultSet generatedKeys = preparedStatment.getGeneratedKeys();
