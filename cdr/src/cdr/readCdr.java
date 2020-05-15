@@ -37,9 +37,11 @@ public class readCdr {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        
    try {
             WatchService watcher = FileSystems.getDefault().newWatchService();
-            Path myObj = Paths.get("/home/asalah/Desktop/Billi/new");
+            Path myObj = Paths.get("./src/new");
             myObj.register(watcher, ENTRY_CREATE, ENTRY_MODIFY);
              
             System.out.println("Watch Service registered for dir: " + myObj.getFileName());
@@ -61,7 +63,7 @@ public class readCdr {
                     Path fileName = ev.context();
                      
                     System.out.println(kind.name() + ": " + fileName);
-                    Scanner myReader = new Scanner(Paths.get("/home/asalah/Desktop/Billi/new/"+fileName));
+                    Scanner myReader = new Scanner(Paths.get("./src/new/"+fileName));
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 String[] arrOfStr = data.split(",",7);
@@ -89,8 +91,8 @@ public class readCdr {
             myReader.close();
             
                        Path temp = Files.move 
-        (Paths.get("/home/asalah/Desktop/Billi/new/"+fileName),  
-        Paths.get("/home/asalah/Desktop/Billi/old/"+fileName)); 
+        (Paths.get("./src/new/"+fileName),  
+        Paths.get("./src/old/"+fileName)); 
             
             
             
