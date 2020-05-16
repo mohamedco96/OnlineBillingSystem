@@ -41,14 +41,15 @@ public class data implements DAO<Cdr>{
     @Override
     public boolean save(Cdr t) {
         boolean operationSuccess = true;
-        String sqlCommand = "insert into cdr (dial_a  ,dial_b  , service_id  , duration  , start_date  , start_time, external_charges ) values (?,?,?,?,?,?,?);";
+        String sqlCommand = "insert into cdr (origin  ,dest  , service_id  , volume  , date  , time, external_fees ) values (?,?,?,?,?,?,?);";
 
         try(PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {
-            preparedStatment.setString(1, t.getDial_a());
+            preparedStatment.setString(1, t.getOrigin());
             preparedStatment.setString(2, t.getDial_b());
             preparedStatment.setInt(3, t.getService_id());
             preparedStatment.setInt(4, t.getDuration());
-            preparedStatment.setString(5, t.getStart_date());
+            System.out.println(t.getStart_date());
+            preparedStatment.setObject(5, t.getStart_date());
             preparedStatment.setString(6, t.getStart_time());
             preparedStatment.setInt(7, t.getExternal_charges());
             preparedStatment.executeUpdate();
