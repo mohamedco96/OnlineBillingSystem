@@ -18,7 +18,12 @@ public class ServicePackage {
     private TariffZone tarrifZone;
     private int free_units;
     private float rate;
-
+    
+    public ServicePackage(){
+        this.service=new Service();
+        this.timePackage=new TimePackage();
+        this.tarrifZone=new TariffZone();
+    }
     public int getRatePlanId() {
         return RatePlanId;
     }

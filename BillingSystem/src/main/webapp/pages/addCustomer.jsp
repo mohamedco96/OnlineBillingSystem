@@ -4,6 +4,8 @@
     Author     : moham
 --%>
 
+<%@page import="com.billingsystem.entities.Customer"%>
+<%@page import="com.billingsystem.daos.CustomerDAO"%>
 <%@page import="com.billingsystem.entities.Service"%>
 <%@page import="com.billingsystem.daos.ServiceDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -47,7 +49,7 @@
                         <i class="fas fa-coins mr-3"></i>Tarrif Zone</a>
                     <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-box mr-3"></i>Rate plan</a>
-                    <a href="addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
+                    <a href="customers.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Customers</a>
                     <a href="viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-file-invoice mr-3"></i>Billing</a>
@@ -73,6 +75,91 @@
                 </div>
                 <!-- Heading -->
             </div>
+            <%
+                RatePlanDAO rpd = new RatePlanDAO();
+                ArrayList<RatePlan> allRatePlan = rpd.getAll();
+
+                ServiceDAO sd = new ServiceDAO();
+                ArrayList<Service> AllRecurringServices = sd.getAllRecurringServices();
+                ArrayList<Service> AllOneTimeFee = sd.getAllOneTimeFee();
+            %>
+            <%
+                if (request.getParameter("customerId") != null) {
+                    CustomerDAO cd = new CustomerDAO();
+                    Customer c = new Customer();
+                    c.setId(Integer.parseInt(request.getParameter("customerId")));
+                    Customer customer = cd.get(Integer.parseInt(request.getParameter("customerId")));
+            %>    
+            <div class="container" style="margin-top: 50px;">
+                <h3 style="margin-bottom: 20px">Customer Profile</h3>
+                <form class="needs-validation" action="../addCustomer" method="POST" novalidate>
+                    <input type="hidden" name="customer" value="updateCustomer">
+                    <input type="hidden" name="customerId" value=<%=customer.getId()%>>
+                    <div class="form-row">
+                        <input type="text" class="form-control mb-4" id="validationCustom01" placeholder="Full name" name="name" required value="<%=customer.getName()%>">
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <input type="text" class="form-control mb-4" id="validationCustom02" placeholder="National ID" name="nid" required value="<%=customer.getNid()%>">
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <input type="text" class="form-control mb-4" id="validationCustom02" placeholder="Enter Dial Number" name="dnum" required value="<%=customer.getPhone()%>">
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" class="form-control mb-4" id="validationCustom03" placeholder="Enter customer Address" name="addr" required value="<%=customer.getAddress()%>">
+                        <div class="invalid-feedback">
+                            Please provide a valid Address.
+                        </div>
+                        <input type="email" class="form-control mb-4" id="validationCustom04" placeholder="Enter customer Email" name="email" required value="<%=customer.getEmail()%>">
+                        <div class="invalid-feedback">
+                            Please provide a valid Email.
+                        </div>
+                        <input type="date" class="form-control mb-4" id="validationCustom04"  name="billing_date" required value="<%=customer.getBillingDate()%>">
+                        <div class="invalid-feedback">
+                            Please provide a Date.
+                        </div>
+                        <label>Profile</label>
+                        <select class="browser-default custom-select mb-4" name="profile">
+                            <option selected>select Profile from menu</option>
+                            <%
+                                for (int i = 0; i < allRatePlan.size(); i++) {
+                            %>
+                            <option value="<%=allRatePlan.get(i).getId()%>"><%=allRatePlan.get(i).getName()%></option>
+                            <%}%>
+                        </select>
+
+                        <label>Recurring Services</label>
+                        <select class="browser-default custom-select mb-4" name="rs">
+                            <option selected>select Recurring Services from menu</option>
+                            <%
+                                for (int i = 0; i < AllRecurringServices.size(); i++) {
+                            %>
+                            <option value="<%=AllRecurringServices.get(i).getId()%>"><%=AllRecurringServices.get(i).getName()%></option>
+                            <%}%>
+                        </select>
+                        <label>One time fee</label>
+                        <select class="browser-default custom-select mb-4" name="otf">
+                            <option selected>select One time fee from menu</option>
+                            <%
+                                for (int i = 0; i < AllOneTimeFee.size(); i++) {
+                            %>
+                            <option value="<%=AllOneTimeFee.get(i).getId()%>"><%=AllOneTimeFee.get(i).getName()%></option>
+                            <%}%>
+                        </select>
+                    </div>
+                    <input type="hidden" name="customer" value="addCustomer">
+                    <button class="btn btn-primary btn-sm" type="submit">Submit</button>
+                </form>
+            </div>
+            <%}%> 
+
+            <%
+                if (request.getParameter("customer").equals("addCustomer")) {
+            %>    
             <div class="container" style="margin-top: 50px;">
                 <h3 style="margin-bottom: 20px">Customer Profile</h3>
                 <form class="needs-validation" action="../addCustomer" method="POST" novalidate>
@@ -104,14 +191,7 @@
                             Please provide a Date.
                         </div>
                         <label>Profile</label>
-                        <%
-                            RatePlanDAO rpd = new RatePlanDAO();
-                            ArrayList<RatePlan> allRatePlan = rpd.getAll();
-                            
-                            ServiceDAO sd = new ServiceDAO();
-                            ArrayList<Service> AllRecurringServices = sd.getAllRecurringServices();
-                            ArrayList<Service> AllOneTimeFee = sd.getAllOneTimeFee();
-                        %>
+
 
 
                         <select class="browser-default custom-select mb-4" name="profile">
@@ -124,7 +204,7 @@
                         </select>
 
                         <label>Recurring Services</label>
-                        <select class="browser-default custom-select mb-4" name="profile">
+                        <select class="browser-default custom-select mb-4" name="rs">
                             <option selected>select Recurring Services from menu</option>
                             <%
                                 for (int i = 0; i < AllRecurringServices.size(); i++) {
@@ -132,8 +212,10 @@
                             <option value="<%=AllRecurringServices.get(i).getId()%>"><%=AllRecurringServices.get(i).getName()%></option>
                             <%}%>
                         </select>
+                        <input type="text" class="form-control mb-4" id="validationCustom02" placeholder="Enter cost" name="rsCost" >
+
                         <label>One time fee</label>
-                        <select class="browser-default custom-select mb-4" name="profile">
+                        <select class="browser-default custom-select mb-4" name="otf">
                             <option selected>select One time fee from menu</option>
                             <%
                                 for (int i = 0; i < AllOneTimeFee.size(); i++) {
@@ -141,10 +223,14 @@
                             <option value="<%=AllOneTimeFee.get(i).getId()%>"><%=AllOneTimeFee.get(i).getName()%></option>
                             <%}%>
                         </select>
+                        <input type="text" class="form-control mb-4" id="validationCustom02" placeholder="Enter cost" name="otfCost" >
+
                     </div>
+                    <input type="hidden" name="customer" value="addCustomer">
                     <button class="btn btn-primary btn-sm" type="submit">Submit</button>
                 </form>
             </div>
+            <%}%> 
         </main>
         <!--Main layout-->
         <!--Footer-->

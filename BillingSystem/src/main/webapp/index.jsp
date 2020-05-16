@@ -55,7 +55,7 @@
                         <i class="fas fa-coins mr-3"></i>Tarrif Zone</a>
                     <a href="./pages/ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-box mr-3"></i>Rate plan</a>
-                    <a href="./pages/addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
+                    <a href="./pages/customers.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Customers</a>
                     <a href="./pages/viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-file-invoice mr-3"></i>Billing</a>

@@ -54,7 +54,7 @@
                         <i class="fas fa-coins mr-3"></i>Tarrif Zone</a>
                     <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-box mr-3"></i>Rate plan</a>
-                    <a href="addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
+                    <a href="customers.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Customers</a>
                     <a href="viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-file-invoice mr-3"></i>Billing</a>
@@ -91,22 +91,21 @@
             <%
                 RatePlanDAO rpd = new RatePlanDAO();
                 ArrayList<RatePlan> allRatePlan = rpd.getAll();
-                
-                
+
 //                ArrayList<ServicePackage> allServicePackage = rpd.getAllServicePackage();
             %>
-            
+
 
             <div class="container my-5">
                 <!--Section: Content-->
                 <section class="text-center dark-grey-text">
                     <!-- Section heading -->
                     <h3 class="font-weight-bold pb-2 mb-4">Our pricing plans</h3>
-                    
+
                     <a class="btn btn-primary" href="./RatePlanAndServicePackage.jsp">Add Rate Plan</a>
                     <!-- Grid row -->
                     <div class="row">
-                        <% for (int i = 0; i < allRatePlan.size(); i++) { %>
+                        <% for (int i = 0; i < allRatePlan.size(); i++) {%>
                         <div class="col-lg-4 col-md-12 mb-4">
                             <!-- Pricing card -->
                             <div class="card pricing-card">
@@ -120,15 +119,15 @@
                                 <!-- Features -->
                                 <div class="card-body striped mb-1">
                                     <ul>
-                                        <% 
+                                        <%
                                             ServicePackage sp = new ServicePackage();
-                                            RatePlanDAO dsj=new RatePlanDAO();
-                                           
+                                            RatePlanDAO dsj = new RatePlanDAO();
+
                                             List<ServicePackage> allServicePackage = allRatePlan.get(i).getServicePackages();
-                                            for (int j = 0; j < allServicePackage.size(); j++) { 
-                                            
+                                            for (int j = 0; j < allServicePackage.size(); j++) {
+
                                         %>
-                                            
+
                                         <li>
                                             <p class="mt-2"><i class="fas fa-check green-text pr-2"></i><%= allServicePackage.get(j).getService().getName()%></p>
                                         </li>
@@ -138,13 +137,16 @@
                                         <li>
                                             <p class="mt-2"><i class="fas fa-check green-text pr-2"></i>Rate:<%= allServicePackage.get(j).getRate()%></p>
                                         </li>
-                                         <%}%>
+                                        <%}%>
                                     </ul>
-                                     <a class="btn btn-primary">Edit</a>
-                                     <a class="btn btn-primary">Delete</a>
+                                    <a class="btn btn-primary">Edit</a>
+                                    <form class="needs-validation" action="./addCustomer.jsp" method="POST" novalidate>
+                                        <input type="hidden" name="customer" value="addCustomer">
+                                        <button class="btn btn-primary btn-sm" type="submit">Delete</button>
+                                    </form>
                                 </div>
                                 <!-- Features -->
-                               
+
                             </div>
                             <!-- Pricing card -->
                         </div>

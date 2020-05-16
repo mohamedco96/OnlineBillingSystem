@@ -25,7 +25,25 @@ public class ServicePackageDAO implements DAO<ServicePackage> {
 
     @Override
     public ServicePackage get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ServicePackage sp = new ServicePackage();
+        String customerJoinRatePlanQuery = "select * from svc_pkg where id =" + id + ";";
+        ServiceDAO serviceDao = new ServiceDAO();
+        try (
+                Statement stmt1 = conn.createStatement();) {
+            ResultSet rs1 = stmt1.executeQuery(customerJoinRatePlanQuery);
+            while (rs1.next()) {
+
+                sp.setId(rs1.getInt(1));
+                sp.setService(serviceDao.get(rs1.getInt(3)));
+                sp.setFree_units(rs1.getInt(6));
+                sp.setRate(rs1.getFloat(7));
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("##### Service get all faild: \n" + ex.getMessage());
+        }
+        return sp;
+
     }
 
     @Override
@@ -94,7 +112,6 @@ public class ServicePackageDAO implements DAO<ServicePackage> {
                 sp.getTarrifZone().setName(rs1.getString("rpname"));
                 sp.setFree_units(rs1.getInt("id"));
                 sp.setRate(rs1.getFloat("id"));
-                
 
                 allServicePackage.add(sp);
 

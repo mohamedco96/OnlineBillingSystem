@@ -1,9 +1,18 @@
+
+<%@page import="com.billingsystem.messaging.email"%>
+<%@page import="com.billingsystem.messaging.nxSms"%>
+<%@page import="com.billingsystem.entities.RatePlan"%>
+<%@page import="com.billingsystem.entities.Service"%>
+<%@page import="com.billingsystem.entities.Customer"%>
+<%@page import="com.billingsystem.daos.DetailedBillDao"%>
+<%@page import="com.billingsystem.entities.DetailedBill"%>
 <%-- 
     Document   : viewBilling
     Created on : May 1, 2020, 4:52:01 PM
     Author     : moham
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.Vector"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,6 +32,18 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </head>
+    <%
+        DetailedBill detailedBill;
+        DetailedBillDao detailedBillDao = new DetailedBillDao();
+        Customer customer;
+        Service service;
+        detailedBill = detailedBillDao.get("11221234567", 4);
+        customer = detailedBill.getCustomer();
+        DetailedBill.RecService recService;
+        DetailedBill.BillServices billServices;
+        Vector<DetailedBill.RecService> vec2 = detailedBill.getVec2();
+        Vector<DetailedBill.BillServices> vec = detailedBill.getVec();
+    %>
     <body class="grey lighten-3">
         <!--Main Navigation-->
         <header>
@@ -43,7 +64,7 @@
                         <i class="fas fa-coins mr-3"></i>Tarrif Zone</a>
                     <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-box mr-3"></i>Rate plan</a>
-                    <a href="addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
+                    <a href="customers.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Customers</a>
                     <a href="viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-file-invoice mr-3"></i>Billing</a>
@@ -61,7 +82,7 @@
                     <!--Card content-->
                     <div class="card-body d-sm-flex justify-content-between">
                         <h4 class="mb-2 mb-sm-0 pt-1">
-                            <a href="../index.jsp" target="_blank">Dashboard</a>
+                            <a href="../dashboard.jsp" target="_blank">Dashboard</a>
                             <span>/</span>
                             <span>View Billing</span>
                         </h4>
@@ -77,6 +98,22 @@
                 <!-- Heading -->
             </div>
             <button type="button" class="btn btn-outline-primary waves-effect rounded " onclick="HTMLtoPDF()"> Pdf Generator </button>
+            <%
+                String name=detailedBill.getCustomer().getName();
+                    String total=String.valueOf(detailedBill.getTotal());
+                    String text="Hi "+name+" Youre Total Invoice is "+total;
+                if (request.getParameter("email") != null) {
+                    email e = new email();
+                    e.sendMail(request.getParameter("email"),text);
+                    System.out.println(request.getParameter("email"));
+                }
+
+                if (request.getParameter("phone") != null) {
+                    nxSms sms = new nxSms();
+                    sms.sendSMS(request.getParameter("phone"),text);
+                    System.out.println(request.getParameter("phone"));
+                }
+            %>
             <div id="invoice" class="effect2">
                 <div id="invoice-top">
                     <div class="logo"></div>
@@ -95,66 +132,84 @@
                 <div id="invoice-mid">
                     <div class="clientlogo"></div>
                     <div class="info">
-                        <h2>Client Name</h2>
-                        <p>JohnDoe@gmail.com</br>
-                            555-555-5555</br>
+                        <h2><%=detailedBill.getCustomer().getName()%></h2>
+                        <p><%=detailedBill.getCustomer().getEmail()%></p>
+                        <br>
+                        <p> <%=detailedBill.getCustomer().getPhone()%></p>
+
+                        <br>
                     </div>
                 </div><!--End Invoice Mid-->
                 <div id="invoice-bot">
                     <div id="table">
                         <table>
                             <tr class="tabletitle">
-                                <td class="item"><h2>Item Description</h2></td>
-                                <td class="Hours"><h2>Hours</h2></td>
+                                <td class="item"><h2>Services</h2></td>
+                                <td class="Hours"><h2>Usage</h2></td>
                                 <td class="Rate"><h2>Rate</h2></td>
-                                <td class="subtotal"><h2>Sub-total</h2></td>
+                                <td class="subtotal"><h2>Cost</h2></td>
                             </tr>
+                            <% for (int i = 0; i < vec.size(); i++) {%>
                             <tr class="service">
-                                <td class="tableitem"><p class="itemtext">Communication</p></td>
-                                <td class="tableitem"><p class="itemtext">5</p></td>
-                                <td class="tableitem"><p class="itemtext">$75</p></td>
-                                <td class="tableitem"><p class="itemtext">$375.00</p></td>
+
+                                <td class="tableitem"><p class="itemtext"><%=vec.get(i).getSvc().getName()%></p></td>
+                                <td class="tableitem"><p class="itemtext"><%=vec.get(i).getUsed()%></p></td>
+                                <td class="tableitem"><p class="itemtext"><%=vec.get(i).getRate()%></p></td>
+                                <td class="tableitem"><p class="itemtext"><%=vec.get(i).getCost()%></p></td>
                             </tr>
+                            <% } %>
+                            <% for (int i = 0; i < vec2.size(); i++) {%>
                             <tr class="service">
-                                <td class="tableitem"><p class="itemtext">Asset Gathering</p></td>
-                                <td class="tableitem"><p class="itemtext">3</p></td>
-                                <td class="tableitem"><p class="itemtext">$75</p></td>
-                                <td class="tableitem"><p class="itemtext">$225.00</p></td>
+
+                                <td class="tableitem"><p class="itemtext"><%=vec2.get(i).getSvc().getName()%></p></td>
+                                <td class="tableitem"><p class="itemtext"><%=vec2.get(i).getCost()%></p></td>
                             </tr>
-                            <tr class="service">
-                                <td class="tableitem"><p class="itemtext">Design Development</p></td>
-                                <td class="tableitem"><p class="itemtext">5</p></td>
-                                <td class="tableitem"><p class="itemtext">$75</p></td>
-                                <td class="tableitem"><p class="itemtext">$375.00</p></td>
-                            </tr>
-                            <tr class="service">
-                                <td class="tableitem"><p class="itemtext">Animation</p></td>
-                                <td class="tableitem"><p class="itemtext">20</p></td>
-                                <td class="tableitem"><p class="itemtext">$75</p></td>
-                                <td class="tableitem"><p class="itemtext">$1,500.00</p></td>
-                            </tr>
-                            <tr class="service">
-                                <td class="tableitem"><p class="itemtext">Animation Revisions</p></td>
-                                <td class="tableitem"><p class="itemtext">10</p></td>
-                                <td class="tableitem"><p class="itemtext">$75</p></td>
-                                <td class="tableitem"><p class="itemtext">$750.00</p></td>
-                            </tr>
-                            <tr class="service">
-                                <td class="tableitem"><p class="itemtext"></p></td>
-                                <td class="tableitem"><p class="itemtext">HST</p></td>
-                                <td class="tableitem"><p class="itemtext">13%</p></td>
-                                <td class="tableitem"><p class="itemtext">$419.25</p></td>
-                            </tr>
+                            <% }%>
                             <tr class="tabletitle">
                                 <td></td>
                                 <td></td>
                                 <td class="Rate"><h2>Total</h2></td>
-                                <td class="payment"><h2>$3,644.25</h2></td>
+                                <td class="payment"><h2><%=detailedBill.getTotal()%></h2></td>
                             </tr>
                         </table>
                     </div><!--End Table-->
                 </div><!--End InvoiceBot-->
             </div><!--End Invoice-->
+            <div class="row">
+                <div class="col">
+                    <form class="needs-validation" action="./viewBilling.jsp" method="POST" novalidate>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text" class="form-control" id="validationCustom01" placeholder="Enter Email" 
+                                       required name="email">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary btn-sm" type="submit">Send Email</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col">
+                    <form class="needs-validation" action="./viewBilling.jsp" method="POST" novalidate>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text" class="form-control" id="validationCustom01" placeholder="Enter Phone Number" 
+                                       required name="phone">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary btn-sm" type="submit">Send SMS</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </main>
         <!--Main layout-->
         <!--Footer-->

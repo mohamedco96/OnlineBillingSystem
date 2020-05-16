@@ -3,7 +3,7 @@
     Created on : May 11, 2020, 12:50:03 AM
     Author     : moham
 --%>
-
+<% response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); %>
 <%@page import="com.billingsystem.entities.TariffZone"%>
 <%@page import="com.billingsystem.daos.TariffZoneDAO"%>
 <%@page import="com.billingsystem.entities.TimePackage"%>
@@ -56,7 +56,7 @@
                         <i class="fas fa-coins mr-3"></i>Tarrif Zone</a>
                     <a href="ratePlan.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-box mr-3"></i>Rate plan</a>
-                    <a href="addCustomer.jsp" class="list-group-item list-group-item-action waves-effect">
+                    <a href="customers.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-user mr-3"></i>Customers</a>
                     <a href="viewBilling.jsp" class="list-group-item list-group-item-action waves-effect">
                         <i class="fas fa-file-invoice mr-3"></i>Billing</a>
@@ -106,7 +106,7 @@
                         <div class="valid-feedback">
                             Looks good!
                         </div>
-
+                        
                         <%
                             ServiceDAO sd = new ServiceDAO();
                             TimePackageDAO tpd = new TimePackageDAO();
@@ -116,14 +116,15 @@
                             ArrayList<TariffZone> AllTariffZone = tzd.getAll();
                         %>
 
-                       
+                            <input type="hidden" value="461" name="test">
+
                         <h3>Services</h3>
                         <%
                             for (int k = 0; k < AllService.size(); k++) {
                         %>
                         <div class="row">
-                                                            <input type="hidden" value="<%=AllService.get(k).getId()%>" name="<%=AllService.get(k).getName() + "Checked"%>">
-
+                            <input type="hidden" value="<%=AllService.get(k).getId()%>" name="<%=AllService.get(k).getName() + "Checked"%>">
+                            
                             <div class="col">
                                 <label id="<%=AllService.get(k).getId()%>"><%=AllService.get(k).getName()%></label>
                             </div>

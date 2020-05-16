@@ -22,7 +22,7 @@ public class Customer {
     private String address;
     private LocalDate billingDate;
     private RatePlan ratePlan;
-    private List<Service> addOnServices;
+    private List<ExtraService> addOnServices;
 
     public Customer() {
         this.ratePlan = new RatePlan();
@@ -93,11 +93,11 @@ public class Customer {
         this.ratePlan = ratePlan;
     }
 
-    public List<Service> getAddOnServices() {
+    public List<ExtraService> getAddOnServices() {
         return addOnServices;
     }
 
-    public void setAddOnServices(List<Service> addOnServices) {
+    public void setAddOnServices(List<ExtraService> addOnServices) {
         this.addOnServices = addOnServices;
     }
     

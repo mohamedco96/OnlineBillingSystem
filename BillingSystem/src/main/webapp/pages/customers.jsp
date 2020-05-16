@@ -1,14 +1,18 @@
 <%-- 
-    Document   : service
-    Created on : May 3, 2020, 10:55:48 PM
+    Document   : customers
+    Created on : May 15, 2020, 10:15:10 PM
     Author     : moham
 --%>
 
-<%@page import="java.util.ArrayList"%>
+
+<%@page import="com.billingsystem.entities.Customer"%>
+<%@page import="com.billingsystem.daos.CustomerDAO"%>
 <%@page import="com.billingsystem.entities.Service"%>
 <%@page import="com.billingsystem.daos.ServiceDAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.billingsystem.entities.RatePlan"%>
+<%@page import="com.billingsystem.daos.RatePlanDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -25,15 +29,7 @@
         <link href="../css/style.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-        
     </head>
-    <style>
-        .pt-5,
-        .py-5 {
-            margin-bottom: 100px;
-        }
-    </style>
     <body class="grey lighten-3">
         <!--Main Navigation-->
         <header>
@@ -74,83 +70,108 @@
                         <h4 class="mb-2 mb-sm-0 pt-1">
                             <a href="../index.jsp" target="_blank">Dashboard</a>
                             <span>/</span>
-                            <span>Add service</span>
+                            <span>Add Customer</span>
                         </h4>
-                        <form class="d-flex justify-content-center" action="searchResult.jsp" method="POST">
-                            <!-- Default input -->
-                            <input type="search" placeholder="Find a customer" aria-label="Search" class="form-control" name="keyword">
-                            <button class="btn btn-primary btn-sm my-0 p" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
+
+                        <form class="needs-validation" action="./addCustomer.jsp" method="POST" novalidate>
+                            <input type="hidden" name="customer" value="addCustomer">
+                            <button class="btn btn-primary btn-sm" type="submit">Add Customer</button>
                         </form>
                     </div>
                 </div>
                 <!-- Heading -->
             </div>
 
-  
-            
-            <div id="success"></div>
-            <div id="delete"></div>
+            <%
+                CustomerDAO cd = new CustomerDAO();
+                ArrayList<Customer> listOfCustomer = cd.getAll();
+            %>
 
-            
-            <!--Card-->
-            <div class="card">
-                <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Service</h3>
-
-                <!--Card content-->
-                <div class="card-body">
-
-                    <div id="table" class="table-editable">
-                        <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
-                                    class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
-                        <table class="table table-bordered table-responsive-md table-striped text-center">
+            <!-- Table with panel -->
+            <div class="card card-cascade narrower" style="margin-top: 50px">
+                <!--Card image-->
+                <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center rounded text-center">
+                    <p href="" class="white-text mx-3">Customers</p>
+                </div>
+                <!--/Card image-->
+                <div class="px-4">
+                    <div class="table-responsive">
+                        <!--Table-->
+                        <table class="table table-hover mb-0">
+                            <!--Table head-->
                             <thead>
                                 <tr>
-                                    <th class="text-center">#</th>
-                                    <th class="text-center">Service Name</th>
-                                    <th class="text-center">Rating</th>
-                                    <th class="text-center">Type</th>
-                                    <th class="text-center">Submit</th>
-                                    <th class="text-center">Remove</th>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th class="th-lg">
+                                        Name
+                                    </th>
+                                    <th class="th-lg">
+                                        NID
+                                    </th>
+                                    <th class="th-lg">
+                                        Dial Number	
+                                    </th>
+                                    <th class="th-lg">
+                                        Address
+                                    </th>
+                                    <th class="th-lg">
+                                        Email
+                                    </th>
+                                    <th class="th-lg">
+                                        Profile
+                                    </th>
+                                    <th class="th-lg">
+                                        Billing Date
+                                    </th>
+                                    <th class="th-lg">
+                                        Edit
+                                    </th>
+                                    <th class="th-lg">
+                                        Delete
+                                    </th>
                                 </tr>
                             </thead>
+                            <!--Table head-->
+                            <!--Table body-->
                             <tbody>
                                 <%
-//                                            ProductDAO productDAO = new ProductDAO();
-                                    ServiceDAO sd = new ServiceDAO();
-                                    ArrayList<Service> allService = sd.getAll();
-//                                            ArrayList<Category> allCategories = new ArrayList<>();
-//                                            allCategories.add(new Category(1, "mobiles"));
-//                                            allCategories.add(new Category(2, "laptops"));
-//
-                                    for (int i = 0; i < allService.size(); i++) {
+                                    for (Customer c : listOfCustomer) {
                                 %>
-                                <tr id="<%=allService.get(i).getId()%>">
-                                    <td class="pt-3-half"><%=i + 1%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getName()%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).isRated()%></td>
-                                    <td class="pt-3-half" contenteditable="true"><%=allService.get(i).getType()%></td>
+                                <tr>
+                                    <th scope="row"><%=c.getId()%></th>
+                                    <td><%=c.getName()%></td>
+                                    <td><%=c.getNid()%></td>
+                                    <td><%=c.getPhone()%></td>
+                                    <td><%=c.getAddress()%></td>
+                                    <td><%=c.getEmail()%></td>
+                                    <td><%=c.getRatePlan().getName()%></td>
+                                    <td><%=c.getBillingDate()%></td>
                                     <td>
-                                        <span class="table-submit"><button type="button"
-                                                                           class="btn btn-primary btn-rounded btn-sm my-0">Submit</button></span>
+                                        <form class="needs-validation" action="./addCustomer.jsp" method="POST" novalidate>
+                                            <input type="hidden" name="customer" value="edtiCustomer">
+                                            <input type="hidden" name="customerId" value=<%=c.getId()%>>
+                                            <button class="btn btn-primary btn-sm" type="submit">Edit</button>
+                                        </form>
                                     </td>
                                     <td>
-                                        <span class="table-remove"><button type="button"
-                                                                           class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                        <form class="needs-validation" action="../addCustomer" method="POST" novalidate>
+                                            <input type="hidden" name="customer" value="deleteCustomer">
+                                            <input type="hidden" name="customerId" value=<%=c.getId()%>>
+                                            <button class="btn btn-primary btn-sm" type="submit">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
-                                <%}%>
-
+                                <% }%> 
                             </tbody>
+                            <!--Table body-->
                         </table>
-                        <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
-                                    class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+                        <!--Table-->
                     </div>
-
                 </div>
             </div>
-
+            <!-- Table with panel -->
 
         </main>
         <!--Main layout-->
@@ -162,31 +183,24 @@
                 <a href="#" target="_blank">
                     <i class="fab fa-facebook-f mr-3"></i>
                 </a>
-
                 <a href="#" target="_blank">
                     <i class="fab fa-twitter mr-3"></i>
                 </a>
-
                 <a href="#" target="_blank">
                     <i class="fab fa-youtube mr-3"></i>
                 </a>
-
                 <a href="#" target="_blank">
                     <i class="fab fa-google-plus mr-3"></i>
                 </a>
-
                 <a href="#" target="_blank">
                     <i class="fab fa-dribbble mr-3"></i>
                 </a>
-
                 <a href="#" target="_blank">
                     <i class="fab fa-pinterest mr-3"></i>
                 </a>
-
                 <a href="#" target="_blank">
                     <i class="fab fa-github mr-3"></i>
                 </a>
-
                 <a href="#" target="_blank">
                     <i class="fab fa-codepen mr-3"></i>
                 </a>
@@ -213,8 +227,24 @@
             // Animations initialization
             new WOW().init();
         </script>
-        <script src="../js/addService.js"></script>
-
-
+        <script>
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        </script>
     </body>
 </html>

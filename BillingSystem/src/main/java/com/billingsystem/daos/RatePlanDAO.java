@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,7 +29,24 @@ public class RatePlanDAO implements DAO<RatePlan> {
 
     @Override
     public RatePlan get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        RatePlan s = new RatePlan();
+        String customerJoinRatePlanQuery = "select * from rate_plan where id = " + id + " ;";
+
+        try (
+                Statement stmt1 = conn.createStatement();) {
+            ResultSet rs1 = stmt1.executeQuery(customerJoinRatePlanQuery);
+            while (rs1.next()) {
+
+                s.setId(rs1.getInt("id"));
+                s.setName(rs1.getString("name"));
+                s.setMonthlyFees(rs1.getFloat("monthly_fees"));
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("##### RatePlan get all faild: \n" + ex.getMessage());
+        }
+        return s;
     }
 
     @Override
@@ -83,17 +102,40 @@ public class RatePlanDAO implements DAO<RatePlan> {
     @Override
     public boolean save(RatePlan t) {
         boolean operationSuccess = true;
+        int newRecordId;
         String sqlCommand = "insert into rate_plan (name,monthly_fees) values (?,?)";
 
-        try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand)) {
+        try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand, Statement.RETURN_GENERATED_KEYS)) {
+            conn.setAutoCommit(false);
             preparedStatment.setString(1, t.getName());
             preparedStatment.setFloat(2, t.getMonthlyFees());
 
             preparedStatment.executeUpdate();
 
+            ResultSet generatedKeys = preparedStatment.getGeneratedKeys();
+            generatedKeys.next();
+            newRecordId = generatedKeys.getInt(1);
+            System.out.println("#######" + t.getServicePackages().size());
+
+            for (int i = 0; i < t.getServicePackages().size(); i++) {
+                t.getServicePackages().get(i).setRatePlanId(newRecordId);
+                saveServicePackage(t.getServicePackages().get(i));
+            }
+            conn.commit();
         } catch (SQLException ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(RatePlanDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
             System.out.println("##### RatePlan insert faild: \n" + ex.getMessage());
             operationSuccess = false;
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(RatePlanDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return operationSuccess;
     }
@@ -123,35 +165,12 @@ public class RatePlanDAO implements DAO<RatePlan> {
         return operationSuccess;
     }
 
-    public int saveAndReturnRatePlanId(RatePlan t) {
-        int newRecordId;
-        String sqlCommand = "insert into rate_plan (name,monthly_fees) values (?,?)";
-
-        try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand, Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatment.setString(1, t.getName());
-            preparedStatment.setFloat(2, t.getMonthlyFees());
-
-            preparedStatment.executeUpdate();
-            ResultSet generatedKeys = preparedStatment.getGeneratedKeys();
-            generatedKeys.next();
-            newRecordId = generatedKeys.getInt(1);
-            
-            RatePlan rp = new RatePlan();
-//            rp.setServicePackages(saveServicePackage(rp.getId()));
-            
-        } catch (SQLException ex) {
-            newRecordId = 0;
-            System.out.println("##### rate_plan insert & return id faild: \n" + ex.getMessage());
-        }
-        return newRecordId;
-    }
-
     public int saveServicePackage(ServicePackage sp) {
         int newRecordId;
         String sqlCommand2 = "insert into svc_pkg(rate_plan_id,service_id,time_id,tarrif_id,free_units,rate) values (?,?,?,?,?,?)";
-        
+
         try (PreparedStatement preparedStatment = conn.prepareStatement(sqlCommand2, Statement.RETURN_GENERATED_KEYS)) {
-//            preparedStatment.setInt(1, newRecordId);
+            preparedStatment.setInt(1, sp.getRatePlanId());
             preparedStatment.setInt(2, sp.getService().getId());
             preparedStatment.setInt(3, sp.getTimePackage().getId());
             preparedStatment.setInt(4, sp.getTarrifZone().getId());
